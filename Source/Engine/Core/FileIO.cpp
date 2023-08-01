@@ -1,5 +1,9 @@
 ﻿#include "FileIO.h"
+
 #include <fstream>
+#include <iostream>
+
+#include "Logger.h"
 
 namespace ane {
 	std::string getFilePath() {
@@ -11,6 +15,10 @@ namespace ane {
 		std::filesystem::current_path(filePath, ec);
 
 		return ec.value() == 0;
+	}
+
+	std::string getFileName(const std::filesystem::path& filePath) {
+		return filePath.filename().string();
 	}
 
 	bool fileExists(const std::filesystem::path& filePath) {
@@ -26,6 +34,7 @@ namespace ane {
 
 	bool readFile(const std::filesystem::path& filePath, std::string& buffer) {
 		if(!fileExists(filePath)) {
+			WARNING_LOG;
 			return false;
 		}
 

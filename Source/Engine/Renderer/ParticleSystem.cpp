@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 
 namespace ane {
-	ParticleSystem globalParticleSystem(100);
+	ParticleSystem globalParticleSystem(1000);
 
 	void ParticleSystem::Update(float deltaTime) {
 		for(Particle& particle : this->particles) {
