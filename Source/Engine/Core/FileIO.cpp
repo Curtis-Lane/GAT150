@@ -34,7 +34,7 @@ namespace ane {
 
 	bool readFile(const std::filesystem::path& filePath, std::string& buffer) {
 		if(!fileExists(filePath)) {
-			WARNING_LOG;
+			WARNING_LOG("File not found: " << filePath.string());
 			return false;
 		}
 

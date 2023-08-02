@@ -44,7 +44,7 @@ class Star {
 };
 
 int main(int argc, char* argv[]) {
-	INFO_LOG;
+	INFO_LOG("Hello World!");
 
 	ane::MemoryTracker::Initialize();
 
