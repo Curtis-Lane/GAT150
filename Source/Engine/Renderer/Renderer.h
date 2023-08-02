@@ -23,11 +23,13 @@ namespace ane {
 			void DrawLine(class Vector2 vector1, Vector2 vector2);
 			void DrawPoint(int x, int y);
 			void DrawPoint(float x, float y);
+			void DrawTexture(class Texture* texture, float x, float y, float angle = 0.0f);
 
 			int GetWidth() const {return this->width;}
 			int GetHeight() const {return this->height;}
 
 			friend class Text;
+			friend class Texture;
 
 		private:
 			std::string title;

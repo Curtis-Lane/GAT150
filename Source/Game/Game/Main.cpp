@@ -4,6 +4,7 @@
 #include "Renderer/ParticleSystem.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
@@ -59,6 +60,10 @@ int main(int argc, char* argv[]) {
 
 	std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
 	game->Initialize();
+
+	// Create texture
+	std::shared_ptr<ane::Texture> texture = std::make_shared<ane::Texture>();
+	texture->Create(ane::globalRenderer, "Assignment#5-2Question#7.png");
 	
 	std::vector<Star> stars;
 	for(int i = 0; i < 5000; i++) {
@@ -94,9 +99,9 @@ int main(int argc, char* argv[]) {
 
 		game->Draw(ane::globalRenderer);
 
-		ane::globalParticleSystem.Draw(ane::globalRenderer);
+		ane::globalRenderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
-		//text->Draw(ane::globalRenderer, 400, 300);
+		ane::globalParticleSystem.Draw(ane::globalRenderer);
 		
 		for(Star& star : stars) {
 			star.Update(ane::globalRenderer.GetWidth(), ane::globalRenderer.GetHeight());
