@@ -62,8 +62,8 @@ int main(int argc, char* argv[]) {
 	game->Initialize();
 
 	// Create texture
-	std::shared_ptr<ane::Texture> texture = std::make_shared<ane::Texture>();
-	texture->Create(ane::globalRenderer, "Assignment#5-2Question#7.png");
+	//std::shared_ptr<ane::Texture> texture = std::make_shared<ane::Texture>();
+	//texture->Load("Assignment#5-2Question#7.png", ane::globalRenderer);
 	
 	std::vector<Star> stars;
 	for(int i = 0; i < 5000; i++) {
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
 
 		game->Draw(ane::globalRenderer);
 
-		ane::globalRenderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
+		//ane::globalRenderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 		ane::globalParticleSystem.Draw(ane::globalRenderer);
 		
