@@ -10,24 +10,27 @@
 #include "Renderer/Text.h"
 #include "Framework/Scene.h"
 
+#include "Framework/Resource/ResourceManager.h"
 #include "Renderer/ModelManager.h"
+
+#include "Framework/Components/SpriteComponent.h"
 
 bool SpaceGame::Initialize() {
 	// Create font / text
-	this->font = std::make_shared<ane::Font>("ArcadeClassic.ttf", 24);
-	this->scoreText = std::make_unique<ane::Text>(this->font);
+	//this->font = ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24);
+	this->scoreText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
 	this->scoreText->Create(ane::globalRenderer, "SCORE 0000", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->titleText = std::make_unique<ane::Text>(this->font);
+	this->titleText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
 	this->titleText->Create(ane::globalRenderer, "CRAFTEROIDS", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->gameOverText = std::make_unique<ane::Text>(this->font);
+	this->gameOverText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
 	this->gameOverText->Create(ane::globalRenderer, "GAME OVER", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->livesText = std::make_unique<ane::Text>(this->font);
+	this->livesText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
 	this->livesText->Create(ane::globalRenderer, "LIVES 3", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->powerupText = std::make_unique<ane::Text>(this->font);
+	this->powerupText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
 	this->powerupText->Create(ane::globalRenderer, "", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// Load audio
@@ -63,10 +66,16 @@ void SpaceGame::Update(float deltaTime) {
 		case State::StartLevel:
 			this->scene->RemoveAll();
 			{
+				// Create Player
 				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 10.0f), ane::globalModelManager.Get("steve.txt"));
 				player->tag = "Player";
 				player->game = this;
 				player->SetDamping(0.9f);
+				// Create components
+				std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+				component->texture = ane::globalResourceManager.Get<ane::Texture>("steve.png", ane::globalRenderer);
+				player->AddComponent(std::move(component));
+
 				this->scene->Add(std::move(player));
 			}
 			this->state = State::Game;
@@ -111,14 +120,26 @@ void SpaceGame::Update(float deltaTime) {
 				this->spawnTimer = 0.0f;
 
 				if(ane::random(10) < 7) {
+					// Create zombie
 					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 6.0f), ane::globalModelManager.Get("zombie.txt"));
 					enemy->tag = "Enemy";
 					enemy->game = this;
-					this->scene->Add(std::move(enemy));					
+					// Create components
+					std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+					component->texture = ane::globalResourceManager.Get<ane::Texture>("zombie.png", ane::globalRenderer);
+					enemy->AddComponent(std::move(component));
+
+					this->scene->Add(std::move(enemy));
 				} else {
+					// Create creeper
 					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 5.5f), ane::globalModelManager.Get("creeper.txt"));
 					enemy->tag = "Enemy";
 					enemy->game = this;
+					// Create components
+					std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+					component->texture = ane::globalResourceManager.Get<ane::Texture>("creeper.png", ane::globalRenderer);
+					enemy->AddComponent(std::move(component));
+
 					this->scene->Add(std::move(enemy));
 				}
 			}

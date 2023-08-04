@@ -13,7 +13,7 @@ namespace ane {
 
 			virtual bool Create(std::string fileName, ...) override;
 
-			bool Load(std::string fileName, class Renderer& renderer);
+			bool Load(const std::string& fileName, class Renderer& renderer);
 			Vector2 GetSize();
 
 			friend class Renderer;

@@ -11,7 +11,19 @@ namespace ane {
 		}
 	}
 
-	bool Texture::Load(std::string fileName, Renderer& renderer) {
+	bool Texture::Create(std::string fileName, ...) {
+		va_list args;
+
+		va_start(args, fileName);
+
+		Renderer& renderer = va_arg(args, Renderer);
+
+		va_end(args);
+
+		return Load(fileName, renderer);
+	}
+
+	bool Texture::Load(const std::string& fileName, Renderer& renderer) {
 		SDL_Surface* surface = IMG_Load(fileName.c_str());
 		if(surface == nullptr) {
 			WARNING_LOG("Image not found");
@@ -35,9 +47,5 @@ namespace ane {
 		SDL_QueryTexture(this->texture, NULL, NULL, &point.x, &point.y);
 
 		return Vector2(point.x, point.y);
-	}
-
-	bool Texture::Create(std::string fileName, ...) {
-		return false;
 	}
 }
