@@ -2,13 +2,10 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/ModelManager.h"
 #include "Renderer/ParticleSystem.h"
-#include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
 #include "Framework/Resource/ResourceManager.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "SpaceGame.h"
 
 #include <iostream>
@@ -59,9 +56,6 @@ int main(int argc, char* argv[]) {
 
 	std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
 	game->Initialize();
-
-	// Create texture
-	//ane::res_t<ane::Texture> texture = ane::globalResourceManager.Get<ane::Texture>("Assignment#5-2Question#7.png", ane::globalRenderer);
 	
 	std::vector<Star> stars;
 	for(int i = 0; i < 5000; i++) {
@@ -94,8 +88,6 @@ int main(int argc, char* argv[]) {
 		ane::globalRenderer.BeginFrame();
 
 		ane::globalRenderer.SetColor(ane::random(0, 255), 255, 0, 0);
-
-		//ane::globalRenderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 		game->Draw(ane::globalRenderer);
 

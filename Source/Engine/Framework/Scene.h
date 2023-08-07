@@ -1,7 +1,8 @@
 #pragma once
 
-#include <list>
 #include "Actor.h"
+
+#include <list>
 
 namespace ane {
 	class Renderer;
@@ -24,6 +25,7 @@ namespace ane {
 		private:
 			std::list<std::unique_ptr<Actor>> actors;
 	};
+
 	template<typename T>
 	inline T* Scene::GetActor() {
 		for(std::unique_ptr<Actor>& actor : this->actors) {

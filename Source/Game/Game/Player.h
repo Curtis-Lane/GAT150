@@ -12,8 +12,8 @@ class Player : public ane::Actor {
 		};
 
 	public:
-		Player(float speed, float turnRate, const ane::Transform& transform, std::shared_ptr<ane::Model> model) :
-			ane::Actor(transform, model) {
+		Player(float speed, float turnRate, const ane::Transform& transform) :
+			ane::Actor(transform) {
 			this->speed = speed;
 			this->turnRate = turnRate;
 		}

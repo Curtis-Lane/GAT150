@@ -6,8 +6,8 @@
 
 class Bomber : public ane::Actor {
 	public:
-		Bomber(float speed, float turnRate, const ane::Transform& transform, std::shared_ptr<ane::Model> model) :
-			ane::Actor(transform, model) {
+		Bomber(float speed, float turnRate, const ane::Transform& transform) :
+			ane::Actor(transform) {
 			this->speed = speed;
 			this->turnRate = turnRate;
 			ane::globalAudioSystem.PlayOneShot("creeper_hiss3");

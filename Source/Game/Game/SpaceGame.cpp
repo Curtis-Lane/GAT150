@@ -14,6 +14,7 @@
 #include "Renderer/ModelManager.h"
 
 #include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
 
 bool SpaceGame::Initialize() {
 	// Create font / text
@@ -67,14 +68,17 @@ void SpaceGame::Update(float deltaTime) {
 			this->scene->RemoveAll();
 			{
 				// Create Player
-				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 10.0f), ane::globalModelManager.Get("steve.txt"));
+				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 10.0f));
 				player->tag = "Player";
 				player->game = this;
-				player->SetDamping(0.9f);
 				// Create components
 				std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
 				component->texture = ane::globalResourceManager.Get<ane::Texture>("steve.png", ane::globalRenderer);
 				player->AddComponent(std::move(component));
+				// Create components
+				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
+				physicsComponent->damping = 0.9f;
+				player->AddComponent(std::move(physicsComponent));
 
 				this->scene->Add(std::move(player));
 			}
@@ -121,7 +125,7 @@ void SpaceGame::Update(float deltaTime) {
 
 				if(ane::random(10) < 7) {
 					// Create zombie
-					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 6.0f), ane::globalModelManager.Get("zombie.txt"));
+					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 6.0f));
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components
@@ -132,7 +136,7 @@ void SpaceGame::Update(float deltaTime) {
 					this->scene->Add(std::move(enemy));
 				} else {
 					// Create creeper
-					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 5.5f), ane::globalModelManager.Get("creeper.txt"));
+					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 5.5f));
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components

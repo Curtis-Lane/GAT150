@@ -1,7 +1,10 @@
 #include "Player.h"
 
-#include "Input/InputSystem.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Framework/Scene.h"
+#include "Input/InputSystem.h"
 #include "SpaceGame.h"
 #include "Rocket.h"
 #include "Bomber.h"
@@ -33,18 +36,33 @@ void Player::Update(float deltaTime) {
 
 		if(it != this->powerups.end()) {
 			ane::Transform rocketTransform1(this->transform.position, this->transform.rotation + ane::DegreesToRadians(10), this->transform.scale / 2);
-			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform1, this->model, "bow");
+			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform1, "bow");
 			rocket->tag = "Player";
+			// Create components
+			std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			rocket->AddComponent(std::move(component));
+
 			this->scene->Add(std::move(rocket));
 
 			ane::Transform rocketTransform2(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10), this->transform.scale / 2);
-			rocket = std::make_unique<Rocket>(400.0f, rocketTransform2, this->model, "bow");
+			rocket = std::make_unique<Rocket>(400.0f, rocketTransform2, "bow");
 			rocket->tag = "Player";
+			// Create components
+			component = std::make_unique<ane::SpriteComponent>();
+			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			rocket->AddComponent(std::move(component));
+
 			this->scene->Add(std::move(rocket));
 		} else {
 			ane::Transform rocketTransform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
-			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, this->model, "bow");
+			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "bow");
 			rocket->tag = "Player";
+			// Create components
+			std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			rocket->AddComponent(std::move(component));
+
 			this->scene->Add(std::move(rocket));
 		}
 	}
@@ -63,9 +81,10 @@ void Player::Update(float deltaTime) {
 	}
 
 	ane::vec2 forward = ane::vec2(0, -1).Rotate(this->transform.rotation);
-	AddForce(forward * this->speed * thrust);
 
-	//this->transform.position += forward * speed * thrust * ane::globalTime.GetDeltaTime();
+	ane::PhysicsComponent* physicsComponent = GetComponent<ane::PhysicsComponent>();
+	physicsComponent->ApplyForce(forward * this->speed * thrust);
+
 	this->transform.position.x = ane::Wrap(this->transform.position.x, static_cast<float> (ane::globalRenderer.GetWidth()));
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
 }

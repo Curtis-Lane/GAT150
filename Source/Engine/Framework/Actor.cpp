@@ -12,12 +12,12 @@ namespace ane {
 			}
 		}
 
-		this->transform.position += this->velocity * deltaTime;
-		this->velocity *= std::pow(1.0f - this->damping, deltaTime);
+		for(auto& component : this->components) {
+			component->Update(deltaTime);
+		}
 	}
 
 	void Actor::Draw(ane::Renderer& renderer) {
-		//this->model->Draw(renderer, this->transform);
 		for(auto& component : this->components) {
 			RenderComponent* renderComponent = dynamic_cast<RenderComponent*>(component.get());
 			if(renderComponent != nullptr) {

@@ -5,8 +5,8 @@
 
 class Rocket : public ane::Actor {
 	public:
-	Rocket(float speed, const ane::Transform& transform, std::shared_ptr<ane::Model> model, const std::string& fireSound) :
-		ane::Actor(transform, model) {
+	Rocket(float speed, const ane::Transform& transform, const std::string& fireSound) :
+		ane::Actor(transform) {
 		this->speed = speed;
 		this->lifeSpan = 2.0f;
 		ane::globalAudioSystem.PlayOneShot(fireSound);

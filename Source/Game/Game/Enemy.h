@@ -4,8 +4,8 @@
 
 class Enemy : public ane::Actor {
 	public:
-		Enemy(float speed, float turnRate, const ane::Transform& transform, std::shared_ptr<ane::Model> model) :
-			ane::Actor(transform, model) {
+		Enemy(float speed, float turnRate, const ane::Transform& transform) :
+			ane::Actor(transform) {
 			this->speed = speed;
 			this->turnRate = turnRate;
 			this->fireRate = 0.5f;

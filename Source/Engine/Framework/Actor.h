@@ -11,19 +11,17 @@ namespace ane {
 	class Actor {
 		public:
 			Actor() = default;
-			Actor(const ane::Transform& transform, std::shared_ptr<Model> model) {this->transform = transform; this->model = model;}
-			Actor(const ane::Transform& transform) {this->transform = transform; this->model = nullptr;}
+			Actor(const ane::Transform& transform) {this->transform = transform;}
 
 			virtual void Update(float deltaTime);
 			virtual void Draw(ane::Renderer& renderer);
 
 			void AddComponent(std::unique_ptr<Component> component);
+			template<typename T>
+			T* GetComponent();
 
-			float GetRadius() {return (this->model != nullptr) ? this->model->GetRadius() * this->transform.scale : -10000;}
+			float GetRadius() {return 30.0f;}
 			virtual void OnCollision(Actor* other) {;}
-
-			void AddForce(const vec2& force) {this->velocity += force;}
-			void SetDamping(float damping) {this->damping = damping;}
 
 			class Scene* scene = nullptr;
 			class Game* game = nullptr;
@@ -39,9 +37,17 @@ namespace ane {
 			std::vector<std::unique_ptr<Component>> components;
 
 			bool destroyed = false;
-			std::shared_ptr<Model> model;
-
-			vec2 velocity;
-			float damping = 0.0f;
 	};
+
+	template<typename T>
+	inline T* Actor::GetComponent() {
+		for(std::unique_ptr<Component>& component : this->components) {
+			T* result = dynamic_cast<T*>(component.get());
+			if(result != nullptr) {
+				return result;
+			}
+		}
+
+		return nullptr;
+	}
 }

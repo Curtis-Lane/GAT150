@@ -5,6 +5,8 @@
 #include "Framework/Game.h"
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Resource/ResourceManager.h"
 
 void Enemy::Update(float deltaTime) {
 	Actor::Update(deltaTime);
@@ -35,8 +37,13 @@ void Enemy::Update(float deltaTime) {
 		this->fireTimer = this->fireRate;
 		// Fire weapon
 		ane::Transform rocketTransform(this->transform.position, this->transform.rotation, this->transform.scale * 0.66f);
-		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, this->model, "zombie_hurt1");
+		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "zombie_hurt1");
 		rocket->tag = "Enemy";
+		// Create components
+		std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+		component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+		rocket->AddComponent(std::move(component));
+
 		this->scene->Add(std::move(rocket));
 	}
 }
