@@ -1,8 +1,13 @@
 #include "Model.h"
 #include "Core/FileIO.h"
+
 #include <sstream>
 
 namespace ane {
+	bool Model::Create(std::string fileName, ...) {
+		return Load(fileName);
+	}
+
 	bool Model::Load(const std::string& filename) {
 		std::string buffer;
 		ane::readFile(filename, buffer);

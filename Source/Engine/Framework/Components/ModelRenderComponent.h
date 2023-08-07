@@ -11,6 +11,6 @@ namespace ane {
 			void Draw(class Renderer& renderer) override;
 
 		public:
-			//res_t<Model> model;
+			res_t<Model> model;
 	};
 }
