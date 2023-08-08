@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Renderer.h"
-#include "Font.h"
-#include "Core/Color.h"
 #include <string>
 #include <memory>
+
+#include "Core/Math/Color.h"
+#include "Font.h"
+
+struct SDL_Texture;
 
 namespace ane {
 	class Text {
@@ -15,14 +17,14 @@ namespace ane {
 			}
 			~Text();
 
-			void Create(Renderer& renderer, const std::string& text, const Color& color);
-			void Draw(Renderer& renderer, int x, int y);
+			void Create(class Renderer& renderer, const std::string& text, const Color& color);
+			void Draw(class Renderer& renderer, int x, int y);
 
 			friend class Font;
 			friend class Renderer;
 
 		private:
 			std::shared_ptr<Font> font;
-			struct SDL_Texture* texture = nullptr;
+			SDL_Texture* texture = nullptr;
 	};
 }

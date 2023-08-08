@@ -7,14 +7,7 @@
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Text.h"
-#include "Framework/Scene.h"
-
-#include "Framework/Resource/ResourceManager.h"
-#include "Renderer/ModelManager.h"
-
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Components/EnginePhysicsComponent.h"
+#include "Framework/Framework.h"
 
 bool SpaceGame::Initialize() {
 	// Create font / text

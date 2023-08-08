@@ -1,1 +1,1 @@
-INFO: Main.cpp(44) Hello World!
+INFO: Main.cpp(43) Initializing Engine

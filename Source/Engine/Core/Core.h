@@ -5,9 +5,10 @@
 #include "FileIO.h"
 #include "Memory.h"
 #include "Time.h"
-#include "MathUtils.h"
 
-// Data-holders
-#include "Vector2.h"
-#include "Transform.h"
-#include "Color.h"
+// Math
+#include "Math/MathUtils.h"
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Transform.h"
+#include "Math/Color.h"

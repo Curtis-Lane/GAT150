@@ -1,7 +1,9 @@
 #include "Model.h"
-#include "Core/FileIO.h"
 
 #include <sstream>
+
+#include "Core/FileIO.h"
+#include "Renderer.h"
 
 namespace ane {
 	bool Model::Create(std::string fileName, ...) {

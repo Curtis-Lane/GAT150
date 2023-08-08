@@ -1,11 +1,8 @@
 #include "Core/Core.h"
+#include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/ModelManager.h"
-#include "Renderer/ParticleSystem.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
-#include "Framework/Scene.h"
-#include "Framework/Resource/ResourceManager.h"
 #include "SpaceGame.h"
 
 #include <iostream>
@@ -41,7 +38,7 @@ class Star {
 };
 
 int main(int argc, char* argv[]) {
-	INFO_LOG("Hello World!");
+	INFO_LOG("Initializing Engine");
 
 	ane::MemoryTracker::Initialize();
 

@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-#include "Core/Color.h"
+#include "Core/Math/Color.h"
 
 namespace ane {
 	struct EmitterData {

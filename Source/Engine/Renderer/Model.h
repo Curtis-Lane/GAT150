@@ -3,7 +3,6 @@
 #include "Framework/Resource/Resource.h"
 
 #include "Core/Core.h"
-#include "Renderer.h"
 
 #include <vector>
 
@@ -15,8 +14,8 @@ namespace ane {
 
 			virtual bool Create(std::string fileName, ...) override;
 			bool Load(const std::string& filename);
-			void Draw(Renderer& renderer, const vec2& position, float rotation, float scale);
-			void Draw(Renderer& renderer, const Transform& transform);
+			void Draw(class Renderer& renderer, const vec2& position, float rotation, float scale);
+			void Draw(class Renderer& renderer, const Transform& transform);
 
 			float GetRadius();
 
