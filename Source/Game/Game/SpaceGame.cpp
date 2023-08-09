@@ -64,11 +64,11 @@ void SpaceGame::Update(float deltaTime) {
 				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 10.0f));
 				player->tag = "Player";
 				player->game = this;
-				// Create components
-				std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-				component->texture = ane::globalResourceManager.Get<ane::Texture>("steve.png", ane::globalRenderer);
+				// Create model component
+				std::unique_ptr<ane::ModelRenderComponent> component = std::make_unique<ane::ModelRenderComponent>();
+				component->model = ane::globalResourceManager.Get<ane::Model>("steve.txt", ane::globalRenderer);
 				player->AddComponent(std::move(component));
-				// Create components
+				// Create physics component
 				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
 				physicsComponent->damping = 0.9f;
 				player->AddComponent(std::move(physicsComponent));
