@@ -1,7 +1,7 @@
 #pragma once
 
-//#include "Vector2.h"
-#include "Matrix2x2.h"
+#include "Vector2.h"
+#include "Matrix3x3.h"
 
 namespace ane {
 	class Transform {
@@ -18,11 +18,12 @@ namespace ane {
 				this->scale = scale;
 			}
 
-			Matrix2x2 GetMatrix() const {
-				Matrix2x2 matrixScale = Matrix2x2::CreateScale(this->scale);
-				Matrix2x2 matrixRotation = Matrix2x2::CreateRotation(this->rotation);
+			Matrix3x3 GetMatrix() const {
+				Matrix3x3 matrixScale = Matrix3x3::CreateScale(this->scale);
+				Matrix3x3 matrixRotation = Matrix3x3::CreateRotation(this->rotation);
+				Matrix3x3 matrixTranslate = Matrix3x3::CreateTranslation(this->position);
 
-				return matrixScale * matrixRotation;
+				return matrixTranslate * matrixScale * matrixRotation;
 			}
 	};
 }

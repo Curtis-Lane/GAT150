@@ -53,13 +53,13 @@ namespace ane {
 			return;
 		}
 
-		Matrix2x2 matrix = transform.GetMatrix();
+		Matrix3x3 matrix = transform.GetMatrix();
 
 		renderer.SetColor(Color::ToInt(this->color.r), Color::ToInt(this->color.g), Color::ToInt(this->color.b), Color::ToInt(this->color.a));
 
 		for(size_t i = 0; i < (points.size() - 1); i++) {
-			Vector2 p1 = (matrix * points[i]) + transform.position;
-			Vector2 p2 = (matrix * points[i + 1]) + transform.position;
+			Vector2 p1 = matrix * points[i];
+			Vector2 p2 = matrix * points[i + 1];
 
 			renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
 		}

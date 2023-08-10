@@ -61,12 +61,12 @@ void SpaceGame::Update(float deltaTime) {
 			this->scene->RemoveAll();
 			{
 				// Create Player
-				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 10.0f));
+				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 1.0f));
 				player->tag = "Player";
 				player->game = this;
-				// Create model component
-				std::unique_ptr<ane::ModelRenderComponent> component = std::make_unique<ane::ModelRenderComponent>();
-				component->model = ane::globalResourceManager.Get<ane::Model>("steve.txt", ane::globalRenderer);
+				// Create sprite component
+				std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
+				component->texture = ane::globalResourceManager.Get<ane::Texture>("steve.png", ane::globalRenderer);
 				player->AddComponent(std::move(component));
 				// Create physics component
 				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
@@ -118,7 +118,7 @@ void SpaceGame::Update(float deltaTime) {
 
 				if(ane::random(10) < 7) {
 					// Create zombie
-					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 6.0f));
+					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.6f));
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components
@@ -129,7 +129,7 @@ void SpaceGame::Update(float deltaTime) {
 					this->scene->Add(std::move(enemy));
 				} else {
 					// Create creeper
-					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 5.5f));
+					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.55f));
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components

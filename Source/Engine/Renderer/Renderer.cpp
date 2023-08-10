@@ -82,4 +82,20 @@ namespace ane {
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
 		SDL_RenderCopyEx(this->renderer, texture->texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
 	}
+
+	void Renderer::DrawTexture(Texture* texture, const Transform& transform) {
+		Matrix3x3 matrix = transform.GetMatrix();
+
+		Vector2 position = matrix.GetTranslation();
+		Vector2 size = texture->GetSize() * matrix.GetScale();
+
+		SDL_Rect dest;
+		dest.x = (int) (position.x - (size.x * 0.5f));
+		dest.y = (int) (position.y - (size.y * 0.5f));
+		dest.w = (int) size.x;
+		dest.h = (int) size.y;
+
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(this->renderer, texture->texture, NULL, &dest, RadiansToDegrees(matrix.GetRotation()), NULL, SDL_FLIP_NONE);
+	}
 }

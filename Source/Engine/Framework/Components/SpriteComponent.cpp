@@ -9,6 +9,6 @@ namespace ane {
 	}
 
 	void SpriteComponent::Draw(Renderer& renderer) {
-		renderer.DrawTexture(this->texture.get(), this->owner->transform.position.x, this->owner->transform.position.y, RadiansToDegrees(this->owner->transform.rotation));
+		renderer.DrawTexture(this->texture.get(), this->owner->transform);
 	}
 }
