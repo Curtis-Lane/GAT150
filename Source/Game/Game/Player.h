@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "Framework/Components/PhysicsComponent.h"
+
 class Player : public ane::Actor {
 	public:
 		enum class Powerups {
@@ -18,6 +20,7 @@ class Player : public ane::Actor {
 			this->turnRate = turnRate;
 		}
 
+		bool Initialize() override;
 		void Update(float deltaTime) override;
 		void OnCollision(Actor* other) override;
 
@@ -29,4 +32,6 @@ class Player : public ane::Actor {
 		int health = 100;
 
 		std::vector<Powerups> powerups;
+
+		ane::PhysicsComponent* physicsComponent = nullptr;
 };

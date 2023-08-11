@@ -2,12 +2,31 @@
 
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Components/CircleCollisionComponent.h"
 #include "Framework/Resource/ResourceManager.h"
 #include "Framework/Scene.h"
 #include "Input/InputSystem.h"
 #include "SpaceGame.h"
 #include "Rocket.h"
 #include "Bomber.h"
+
+bool Player::Initialize() {
+	Actor::Initialize();
+
+	// Cache off
+	this->physicsComponent = GetComponent<ane::PhysicsComponent>();
+
+	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
+	if(collisionComponent != nullptr) {
+		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
+		if(renderComponent != nullptr) {
+			float scale = this->transform.scale;
+			collisionComponent->radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Player::Update(float deltaTime) {
 	Actor::Update(deltaTime);
@@ -43,6 +62,12 @@ void Player::Update(float deltaTime) {
 			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
 
+			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+			collisionComponent->radius = 30.0f;
+			rocket->AddComponent(std::move(collisionComponent));
+
+			rocket->Initialize();
+
 			this->scene->Add(std::move(rocket));
 
 			ane::Transform rocketTransform2(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10), this->transform.scale / 2);
@@ -53,6 +78,12 @@ void Player::Update(float deltaTime) {
 			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
 
+			collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+			collisionComponent->radius = 30.0f;
+			rocket->AddComponent(std::move(collisionComponent));
+
+			rocket->Initialize();
+
 			this->scene->Add(std::move(rocket));
 		} else {
 			ane::Transform rocketTransform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
@@ -62,6 +93,12 @@ void Player::Update(float deltaTime) {
 			std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
 			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
+			
+			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+			collisionComponent->radius = 30.0f;
+			rocket->AddComponent(std::move(collisionComponent));
+
+			rocket->Initialize();
 
 			this->scene->Add(std::move(rocket));
 		}
@@ -82,8 +119,7 @@ void Player::Update(float deltaTime) {
 
 	ane::vec2 forward = ane::vec2(0, -1).Rotate(this->transform.rotation);
 
-	ane::PhysicsComponent* physicsComponent = GetComponent<ane::PhysicsComponent>();
-	physicsComponent->ApplyForce(forward * this->speed * thrust);
+	this->physicsComponent->ApplyForce(forward * this->speed * thrust);
 
 	this->transform.position.x = ane::Wrap(this->transform.position.x, static_cast<float> (ane::globalRenderer.GetWidth()));
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));

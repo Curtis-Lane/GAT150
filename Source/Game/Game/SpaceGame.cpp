@@ -72,6 +72,12 @@ void SpaceGame::Update(float deltaTime) {
 				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
 				physicsComponent->damping = 0.9f;
 				player->AddComponent(std::move(physicsComponent));
+				// Create collision component
+				std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+				collisionComponent->radius = 30.0f;
+				player->AddComponent(std::move(collisionComponent));
+
+				player->Initialize();
 
 				this->scene->Add(std::move(player));
 			}
@@ -126,6 +132,12 @@ void SpaceGame::Update(float deltaTime) {
 					component->texture = ane::globalResourceManager.Get<ane::Texture>("zombie.png", ane::globalRenderer);
 					enemy->AddComponent(std::move(component));
 
+					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+					collisionComponent->radius = 30.0f;
+					enemy->AddComponent(std::move(collisionComponent));
+
+					enemy->Initialize();
+
 					this->scene->Add(std::move(enemy));
 				} else {
 					// Create creeper
@@ -136,6 +148,12 @@ void SpaceGame::Update(float deltaTime) {
 					std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
 					component->texture = ane::globalResourceManager.Get<ane::Texture>("creeper.png", ane::globalRenderer);
 					enemy->AddComponent(std::move(component));
+
+					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+					collisionComponent->radius = 30.0f;
+					enemy->AddComponent(std::move(collisionComponent));
+
+					enemy->Initialize();
 
 					this->scene->Add(std::move(enemy));
 				}

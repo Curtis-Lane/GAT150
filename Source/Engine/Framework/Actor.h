@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Object.h"
+
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
@@ -8,10 +10,13 @@
 #include <memory>
 
 namespace ane {
-	class Actor {
+	class Actor : public Object {
 		public:
 			Actor() = default;
 			Actor(const ane::Transform& transform) {this->transform = transform;}
+
+			virtual bool Initialize() override;
+			virtual void OnDestroy() override;
 
 			virtual void Update(float deltaTime);
 			virtual void Draw(ane::Renderer& renderer);

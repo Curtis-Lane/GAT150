@@ -1,5 +1,23 @@
 #include "Rocket.h"
 
+#include "Framework/Components/RenderComponent.h"
+#include "Framework/Components/CollisionComponent.h"
+
+bool Rocket::Initialize() {
+	Actor::Initialize();
+
+	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
+	if(collisionComponent != nullptr) {
+		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
+		if(renderComponent != nullptr) {
+			float scale = this->transform.scale;
+			collisionComponent->radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
+
 void Rocket::Update(float deltaTime) {
 	Actor::Update(deltaTime);
 

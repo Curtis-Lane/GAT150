@@ -12,6 +12,8 @@ class Enemy : public ane::Actor {
 			this->fireTimer = this->fireRate;
 		}
 
+		bool Initialize() override;
+
 		void Update(float deltaTime) override;
 		void OnCollision(Actor* other) override;
 

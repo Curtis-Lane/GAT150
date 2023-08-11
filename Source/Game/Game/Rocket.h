@@ -12,6 +12,8 @@ class Rocket : public ane::Actor {
 		ane::globalAudioSystem.PlayOneShot(fireSound);
 	}
 
+	bool Initialize() override;
+
 	void Update(float deltaTime) override;
 	void OnCollision(Actor* other) override;
 

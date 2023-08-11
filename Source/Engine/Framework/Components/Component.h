@@ -1,13 +1,15 @@
 #pragma once
 
+#include "Framework/Object.h"
+
 namespace ane {
-	class Component {
+	class Component : public Object {
 		public:
 			virtual void Update(float deltaTime) = 0;
 
 			friend class Actor;
 		
-		protected:
+		public:
 			class Actor* owner = nullptr;
 	};
 }

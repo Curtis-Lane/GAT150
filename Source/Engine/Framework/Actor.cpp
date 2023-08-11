@@ -3,6 +3,20 @@
 #include "Components/RenderComponent.h"
 
 namespace ane {
+	bool Actor::Initialize() {
+		for(auto& component : this->components) {
+			component->Initialize();
+		}
+
+		return true;
+	}
+
+	void Actor::OnDestroy() {
+		for(auto& component : this->components) {
+			component->OnDestroy();
+		}
+	}
+
 	void Actor::Update(float deltaTime) {
 		if(this->lifeSpan != -1.0f) {
 			this->lifeSpan -= deltaTime;

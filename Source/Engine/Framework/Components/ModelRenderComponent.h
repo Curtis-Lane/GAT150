@@ -9,6 +9,7 @@ namespace ane {
 		public:
 			void Update(float deltaTime) override;
 			void Draw(class Renderer& renderer) override;
+			float GetRadius() override {return this->model->GetRadius();}
 
 		public:
 			res_t<Model> model;

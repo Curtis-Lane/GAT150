@@ -2,11 +2,22 @@
 
 #include "Player.h"
 #include "Rocket.h"
-#include "Framework/Game.h"
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Resource/ResourceManager.h"
+#include "Framework/Framework.h"
+
+bool Enemy::Initialize() {
+	Actor::Initialize();
+
+	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
+	if(collisionComponent != nullptr) {
+		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
+		if(renderComponent != nullptr) {
+			float scale = this->transform.scale;
+			collisionComponent->radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Enemy::Update(float deltaTime) {
 	Actor::Update(deltaTime);
@@ -43,6 +54,12 @@ void Enemy::Update(float deltaTime) {
 		std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
 		component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
 		rocket->AddComponent(std::move(component));
+
+		std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+		collisionComponent->radius = 30.0f;
+		rocket->AddComponent(std::move(collisionComponent));
+
+		rocket->Initialize();
 
 		this->scene->Add(std::move(rocket));
 	}
