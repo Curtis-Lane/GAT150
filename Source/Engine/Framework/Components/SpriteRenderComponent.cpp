@@ -1,14 +1,14 @@
-#include "SpriteComponent.h"
+#include "SpriteRenderComponent.h"
 
 #include "Renderer/Renderer.h"
 #include "Framework/Actor.h"
 
 namespace ane {
-	void SpriteComponent::Update(float deltaTime) {
+	void SpriteRenderComponent::Update(float deltaTime) {
 		//
 	}
 
-	void SpriteComponent::Draw(Renderer& renderer) {
+	void SpriteRenderComponent::Draw(Renderer& renderer) {
 		renderer.DrawTexture(this->texture.get(), this->owner->transform);
 	}
 }

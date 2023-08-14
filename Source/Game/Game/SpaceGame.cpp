@@ -11,20 +11,20 @@
 
 bool SpaceGame::Initialize() {
 	// Create font / text
-	//this->font = ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24);
-	this->scoreText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
+	//this->font = GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24);
+	this->scoreText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->scoreText->Create(ane::globalRenderer, "SCORE 0000", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->titleText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
+	this->titleText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->titleText->Create(ane::globalRenderer, "CRAFTEROIDS", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->gameOverText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
+	this->gameOverText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->gameOverText->Create(ane::globalRenderer, "GAME OVER", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->livesText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
+	this->livesText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->livesText->Create(ane::globalRenderer, "LIVES 3", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->powerupText = std::make_unique<ane::Text>(ane::globalResourceManager.Get<ane::Font>("ArcadeClassic.ttf", 24));
+	this->powerupText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->powerupText->Create(ane::globalRenderer, "", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// Load audio
@@ -65,9 +65,9 @@ void SpaceGame::Update(float deltaTime) {
 				player->tag = "Player";
 				player->game = this;
 				// Create sprite component
-				std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-				component->texture = ane::globalResourceManager.Get<ane::Texture>("steve.png", ane::globalRenderer);
-				player->AddComponent(std::move(component));
+				std::unique_ptr<ane::SpriteRenderComponent> renderComponent = ane::Factory::Instance().Create<ane::SpriteRenderComponent>("SpriteRenderComponent");
+				renderComponent->texture = GET_RESOURCE(ane::Texture, "steve.png", ane::globalRenderer);
+				player->AddComponent(std::move(renderComponent));
 				// Create physics component
 				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
 				physicsComponent->damping = 0.9f;
@@ -128,8 +128,8 @@ void SpaceGame::Update(float deltaTime) {
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components
-					std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-					component->texture = ane::globalResourceManager.Get<ane::Texture>("zombie.png", ane::globalRenderer);
+					std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
+					component->texture = GET_RESOURCE(ane::Texture, "zombie.png", ane::globalRenderer);
 					enemy->AddComponent(std::move(component));
 
 					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
@@ -145,8 +145,8 @@ void SpaceGame::Update(float deltaTime) {
 					enemy->tag = "Enemy";
 					enemy->game = this;
 					// Create components
-					std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-					component->texture = ane::globalResourceManager.Get<ane::Texture>("creeper.png", ane::globalRenderer);
+					std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
+					component->texture = GET_RESOURCE(ane::Texture, "creeper.png", ane::globalRenderer);
 					enemy->AddComponent(std::move(component));
 
 					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();

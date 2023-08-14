@@ -83,7 +83,7 @@ namespace ane {
 
 	bool JSON::Read(const rapidjson::Value& value, const std::string& name, Vector2& data, bool required) {
 		// Check if 'name' member exists and is an array with 2 elements
-		if(false){//!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || !value[name.c_str()].Size() != 2) {
+		if(!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2) {
 			if(required) {
 				ERROR_LOG("Cannot read required JSON data: " << name.c_str());
 			}

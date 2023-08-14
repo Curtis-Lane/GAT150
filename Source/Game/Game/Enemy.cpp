@@ -51,8 +51,8 @@ void Enemy::Update(float deltaTime) {
 		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "zombie_hurt1");
 		rocket->tag = "Enemy";
 		// Create components
-		std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-		component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+		std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
+		component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
 		rocket->AddComponent(std::move(component));
 
 		std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/SpriteRenderComponent.h"
 #include "Framework/Components/PhysicsComponent.h"
 #include "Framework/Components/CircleCollisionComponent.h"
 #include "Framework/Resource/ResourceManager.h"
@@ -58,8 +58,8 @@ void Player::Update(float deltaTime) {
 			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform1, "bow");
 			rocket->tag = "Player";
 			// Create components
-			std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
+			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
 
 			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
@@ -74,8 +74,8 @@ void Player::Update(float deltaTime) {
 			rocket = std::make_unique<Rocket>(400.0f, rocketTransform2, "bow");
 			rocket->tag = "Player";
 			// Create components
-			component = std::make_unique<ane::SpriteComponent>();
-			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			component = std::make_unique<ane::SpriteRenderComponent>();
+			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
 
 			collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
@@ -90,8 +90,8 @@ void Player::Update(float deltaTime) {
 			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "bow");
 			rocket->tag = "Player";
 			// Create components
-			std::unique_ptr<ane::SpriteComponent> component = std::make_unique<ane::SpriteComponent>();
-			component->texture = ane::globalResourceManager.Get<ane::Texture>("arrow.png", ane::globalRenderer);
+			std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
+			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
 			rocket->AddComponent(std::move(component));
 			
 			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();

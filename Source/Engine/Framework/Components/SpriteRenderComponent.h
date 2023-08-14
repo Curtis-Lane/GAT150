@@ -5,7 +5,7 @@
 #include "Renderer/Texture.h"
 
 namespace ane {
-	class SpriteComponent : public RenderComponent {
+	class SpriteRenderComponent : public RenderComponent {
 		public:
 			void Update(float deltaTime) override;
 			void Draw(class Renderer& renderer) override;

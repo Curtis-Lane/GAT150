@@ -26,7 +26,7 @@ namespace ane {
 	bool Texture::Load(const std::string& fileName, Renderer& renderer) {
 		SDL_Surface* surface = IMG_Load(fileName.c_str());
 		if(surface == nullptr) {
-			WARNING_LOG("Image not found");
+			WARNING_LOG("Image not found: " << fileName.c_str());
 			return false;
 		}
 

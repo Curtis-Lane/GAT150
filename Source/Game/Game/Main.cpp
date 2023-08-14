@@ -38,6 +38,8 @@ class Star {
 };
 
 int main(int argc, char* argv[]) {
+	ane::Factory::Instance().Register<ane::SpriteRenderComponent>("SpriteRenderComponent");
+
 	INFO_LOG("Initializing Engine");
 
 	ane::MemoryTracker::Initialize();
@@ -45,7 +47,7 @@ int main(int argc, char* argv[]) {
 	ane::seedRandom((unsigned int) time(nullptr));
 	ane::setFilePath("assets");
 
-	// JSON stuff
+	/* JSON stuff
 	rapidjson::Document document;
 	ane::JSON::Load("json.txt", document);
 
@@ -72,7 +74,7 @@ int main(int argc, char* argv[]) {
 	ane::Vector2 v2;
 	ane::JSON::Read(document, "vector2", v2);
 	std::cout << v2 << std::endl;
-	// end JSON stuff
+	// end JSON stuff */
 
 	ane::globalRenderer.Initialize();
 	ane::globalRenderer.CreateWindow("CRAFTEROIDS", 800, 600);

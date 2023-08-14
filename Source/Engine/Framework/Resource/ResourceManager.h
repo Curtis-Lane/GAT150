@@ -1,13 +1,17 @@
 #pragma once
 
+#include "Framework/Singleton.h"
+
 #include <map>
 #include <memory>
 #include <string>
 
 #include "Resource.h"
 
+#define GET_RESOURCE(type, fileName, ...) ane::ResourceManager::Instance().Get<type>(fileName, __VA_ARGS__)
+
 namespace ane {
-	class ResourceManager {
+	class ResourceManager : public Singleton<ResourceManager> {
 		public:
 			template<typename T, typename ... TArgs>
 			res_t<T> Get(const std::string& fileName, TArgs ... args);
@@ -28,6 +32,4 @@ namespace ane {
 
 		return resource;
 	}
-
-	extern ResourceManager globalResourceManager;
 }
