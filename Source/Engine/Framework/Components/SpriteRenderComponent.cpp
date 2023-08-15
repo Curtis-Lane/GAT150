@@ -4,6 +4,8 @@
 #include "Framework/Actor.h"
 
 namespace ane {
+	CLASS_DEFINITION(SpriteRenderComponent);
+
 	void SpriteRenderComponent::Update(float deltaTime) {
 		//
 	}

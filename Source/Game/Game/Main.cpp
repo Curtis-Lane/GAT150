@@ -38,7 +38,7 @@ class Star {
 };
 
 int main(int argc, char* argv[]) {
-	ane::Factory::Instance().Register<ane::SpriteRenderComponent>("SpriteRenderComponent");
+	//ane::Factory::Instance().Register<ane::SpriteRenderComponent>("SpriteRenderComponent");
 
 	INFO_LOG("Initializing Engine");
 

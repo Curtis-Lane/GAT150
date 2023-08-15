@@ -12,6 +12,8 @@
 namespace ane {
 	class Actor : public Object {
 		public:
+			CLASS_DECLARATION(Actor)
+
 			Actor() = default;
 			Actor(const ane::Transform& transform) {this->transform = transform;}
 

@@ -5,6 +5,8 @@
 namespace ane {
 	class EnginePhysicsComponent : public PhysicsComponent {
 		public:
+			CLASS_DECLARATION(EnginePhysicsComponent);
+
 			virtual void Update(float deltaTime) override;
 			virtual void ApplyForce(const Vector2& force) override;
 	};

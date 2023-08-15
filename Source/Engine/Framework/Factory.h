@@ -6,6 +6,10 @@
 #include <map>
 #include <string>
 
+#include "Core/Logger.h"
+
+#define CREATE_CLASS(classname) ane::Factory::Instance().Create<ane::classname>(#classname);
+
 namespace ane {
 	class CreatorBase {
 		public:
@@ -30,12 +34,19 @@ namespace ane {
 			template<typename T>
 			std::unique_ptr<T> Create(const std::string& key);
 
+			friend class Singleton;
+
+		protected:
+			Factory() = default;
+
 		private:
 			std::map<std::string, std::unique_ptr<CreatorBase>> registry;
 	};
 
 	template<typename T>
 	inline void Factory::Register(const std::string& key) {
+		INFO_LOG("Class registered: " << key);
+
 		this->registry[key] = std::make_unique<Creator<T>>();
 	}
 

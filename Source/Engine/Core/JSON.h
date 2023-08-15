@@ -4,6 +4,9 @@
 
 #include <rapidjson/include/rapidjson/document.h>
 
+#define READ_DATA(value, data) ane::JSON::Read(value, #data, data);
+#define READ_DATA_REQUIRED(value, data) ane::JSON::Read(value, #data, data, true);
+
 namespace ane {
 	class JSON {
 		public:

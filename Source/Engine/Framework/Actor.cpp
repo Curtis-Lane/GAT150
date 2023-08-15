@@ -3,6 +3,8 @@
 #include "Components/RenderComponent.h"
 
 namespace ane {
+	CLASS_DEFINITION(Actor);
+
 	bool Actor::Initialize() {
 		for(auto& component : this->components) {
 			component->Initialize();
@@ -43,5 +45,11 @@ namespace ane {
 	void Actor::AddComponent(std::unique_ptr<Component> component) {
 		component->owner = this;
 		this->components.push_back(std::move(component));
+	}
+
+	bool Actor::Read(const rapidjson::Value& value) {
+
+
+		return true;
 	}
 }

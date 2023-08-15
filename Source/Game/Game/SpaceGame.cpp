@@ -64,16 +64,19 @@ void SpaceGame::Update(float deltaTime) {
 				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 1.0f));
 				player->tag = "Player";
 				player->game = this;
+
 				// Create sprite component
-				std::unique_ptr<ane::SpriteRenderComponent> renderComponent = ane::Factory::Instance().Create<ane::SpriteRenderComponent>("SpriteRenderComponent");
+				std::unique_ptr<ane::SpriteRenderComponent> renderComponent = CREATE_CLASS(SpriteRenderComponent);
 				renderComponent->texture = GET_RESOURCE(ane::Texture, "steve.png", ane::globalRenderer);
 				player->AddComponent(std::move(renderComponent));
+
 				// Create physics component
-				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = std::make_unique<ane::EnginePhysicsComponent>();
+				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
 				physicsComponent->damping = 0.9f;
 				player->AddComponent(std::move(physicsComponent));
+
 				// Create collision component
-				std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
+				std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = CREATE_CLASS(CircleCollisionComponent);
 				collisionComponent->radius = 30.0f;
 				player->AddComponent(std::move(collisionComponent));
 

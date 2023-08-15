@@ -3,6 +3,8 @@
 #include "Framework/Actor.h"
 
 namespace ane {
+	CLASS_DEFINITION(ModelRenderComponent);
+
 	void ModelRenderComponent::Update(float deltaTime) {
 		//
 	}
