@@ -1,1 +1,8 @@
+INFO: Factory.h(49) Class registered: SpriteRenderComponent
+INFO: Factory.h(49) Class registered: ModelRenderComponent
+INFO: Factory.h(49) Class registered: EnginePhysicsComponent
+INFO: Factory.h(49) Class registered: CircleCollisionComponent
+INFO: Factory.h(49) Class registered: Actor
 INFO: Main.cpp(43) Initializing Engine
+WARNING: Texture.cpp(29) Image not found: 
+ASSERT: Texture.cpp(44) Texture is null pointer

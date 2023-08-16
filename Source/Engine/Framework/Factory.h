@@ -9,6 +9,7 @@
 #include "Core/Logger.h"
 
 #define CREATE_CLASS(classname) ane::Factory::Instance().Create<ane::classname>(#classname);
+#define CREATE_CLASS_BASE(classbase, classname) ane::Factory::Instance().Create<ane::classbase>(classname);
 
 namespace ane {
 	class CreatorBase {

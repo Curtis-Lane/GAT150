@@ -47,9 +47,25 @@ namespace ane {
 		this->components.push_back(std::move(component));
 	}
 
-	bool Actor::Read(const rapidjson::Value& value) {
+	void Actor::Read(const rapidjson::Value& value) {
+		Object::Read(value);
 
+		READ_DATA(value, tag);
+		READ_DATA(value, lifeSpan);
 
-		return true;
+		if(HAS_DATA(value, transform)) {
+			this->transform.Read(value);
+		}
+
+		if(HAS_DATA(value, components) && GET_DATA(value, components).IsArray()) {
+			for(auto& componentValue : GET_DATA(value, components).GetArray()) {
+				std::string type;
+				READ_DATA(componentValue, type);
+
+				auto component = CREATE_CLASS_BASE(Component, type);
+				component->Read(componentValue);
+				this->AddComponent(std::move(component));
+			}
+		}
 	}
 }

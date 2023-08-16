@@ -2,13 +2,14 @@
 
 #include "Vector2.h"
 #include "Matrix3x3.h"
+#include "Core/JSON.h"
 
 namespace ane {
 	class Transform {
 		public:
 			Vector2 position;
-			float rotation = 0;
-			float scale = 1;
+			float rotation = 0.0f;
+			float scale = 1.0f;
 
 		public:
 			Transform() = default;
@@ -25,5 +26,7 @@ namespace ane {
 
 				return matrixTranslate * matrixScale * matrixRotation;
 			}
+
+			void Read(const JSON_t& value);
 	};
 }

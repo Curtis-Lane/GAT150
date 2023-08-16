@@ -1,9 +1,7 @@
 #include "Object.h"
 
 namespace ane {
-	bool Object::Read(const rapidjson::Value& value) {
+	void Object::Read(const rapidjson::Value& value) {
 		READ_DATA(value, name);
-
-		return true;
 	}
 }

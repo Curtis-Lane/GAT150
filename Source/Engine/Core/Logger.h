@@ -1,14 +1,17 @@
 #pragma once
 
+#include "Framework/Singleton.h"
+
 #include <string>
 #include <fstream>
+#include <iostream>
 #include <cassert>
 
 #ifdef _DEBUG
-	#define INFO_LOG(message)    {if(ane::globalLogger.Log(ane::LogLevel::INFO, __FILE__, __LINE__)) {ane::globalLogger << message << "\n";}}
-	#define WARNING_LOG(message) {if(ane::globalLogger.Log(ane::LogLevel::WARNING, __FILE__, __LINE__)) {ane::globalLogger << message << "\n";}}
-	#define ERROR_LOG(message)   {if(ane::globalLogger.Log(ane::LogLevel::ERROR, __FILE__, __LINE__)) {ane::globalLogger << message << "\n";}}
-	#define ASSERT_LOG(condition, message)  {if(!condition && ane::globalLogger.Log(ane::LogLevel::ASSERT, __FILE__, __LINE__)) {ane::globalLogger << message << "\n";} assert(condition);}
+	#define INFO_LOG(message)    {if(ane::Logger::Instance().Log(ane::LogLevel::INFO, __FILE__, __LINE__)) {ane::Logger::Instance() << message << "\n";}}
+	#define WARNING_LOG(message) {if(ane::Logger::Instance().Log(ane::LogLevel::WARNING, __FILE__, __LINE__)) {ane::Logger::Instance() << message << "\n";}}
+	#define ERROR_LOG(message)   {if(ane::Logger::Instance().Log(ane::LogLevel::ERROR, __FILE__, __LINE__)) {ane::Logger::Instance() << message << "\n";}}
+	#define ASSERT_LOG(condition, message)  {if(!condition && ane::Logger::Instance().Log(ane::LogLevel::ASSERT, __FILE__, __LINE__)) {ane::Logger::Instance() << message << "\n";} assert(condition);}
 #else
 	#define INFO_LOG(message)    {;}
 	#define WARNING_LOG(message) {;}
@@ -24,9 +27,9 @@ namespace ane {
 		ASSERT
 	};
 
-	class Logger {
+	class Logger : public Singleton<Logger> {
 		public:
-			Logger(LogLevel logLevel, std::ostream* ostream, const std::string& fileName = "") {
+			Logger(LogLevel logLevel = LogLevel::INFO, std::ostream* ostream = &std::cout, const std::string& fileName = "log.txt") {
 				this->logLevel = logLevel;
 				this->ostream = ostream;
 				if(!fileName.empty()) {
@@ -57,6 +60,4 @@ namespace ane {
 
 		return *this;
 	}
-
-	extern Logger globalLogger;
 }

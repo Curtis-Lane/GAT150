@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Component.h"
-
 #include "Core/Math/Vector2.h"
+#include "Component.h"
 
 namespace ane {
 	class PhysicsComponent : public Component {

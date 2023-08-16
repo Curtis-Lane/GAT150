@@ -2,9 +2,7 @@
 
 #include "Object.h"
 
-#include "Core/Core.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Model.h"
 #include "Components/Component.h"
 
 #include <memory>
@@ -36,14 +34,14 @@ namespace ane {
 			friend class Scene;
 			friend class Enemy;
 
+		public:
 			ane::Transform transform;
 			std::string tag;
 			float lifeSpan = -1.0f;
+			bool destroyed = false;
 
 		protected:
 			std::vector<std::unique_ptr<Component>> components;
-
-			bool destroyed = false;
 	};
 
 	template<typename T>

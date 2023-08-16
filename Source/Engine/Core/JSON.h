@@ -4,8 +4,10 @@
 
 #include <rapidjson/include/rapidjson/document.h>
 
-#define READ_DATA(value, data) ane::JSON::Read(value, #data, data);
-#define READ_DATA_REQUIRED(value, data) ane::JSON::Read(value, #data, data, true);
+#define READ_DATA(value, data) ane::JSON::Read(value, #data, data)
+#define READ_DATA_REQUIRED(value, data) ane::JSON::Read(value, #data, data, true)
+#define HAS_DATA(value, data) value.HasMember(#data)
+#define GET_DATA(value, data) value[#data]
 
 namespace ane {
 	class JSON {
@@ -17,4 +19,6 @@ namespace ane {
 			static bool Read(const rapidjson::Value& value, const std::string& name, std::string& data, bool required = false);
 			static bool Read(const rapidjson::Value& value, const std::string& name, class Vector2& data, bool required = false);
 	};
+
+	using JSON_t = rapidjson::Value;
 }

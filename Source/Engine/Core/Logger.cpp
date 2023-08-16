@@ -1,12 +1,8 @@
 #include "Logger.h"
 
-#include <iostream>
-
 #include "FileIO.h"
 
 namespace ane {
-	Logger globalLogger(LogLevel::INFO, &std::cout, "log.txt");
-
 	bool Logger::Log(LogLevel logLevel, const std::string& fileName, int line) {
 		if(logLevel < this->logLevel) {
 			return false;
