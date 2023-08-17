@@ -8,7 +8,9 @@ namespace ane {
 	CLASS_DEFINITION(SpriteRenderComponent);
 
 	bool SpriteRenderComponent::Initialize() {
-		this->texture = GET_RESOURCE(Texture, textureName, globalRenderer);
+		if(!textureName.empty()) {
+			this->texture = GET_RESOURCE(Texture, textureName, globalRenderer);
+		}
 
 		return true;
 	}

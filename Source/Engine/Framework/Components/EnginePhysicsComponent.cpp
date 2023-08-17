@@ -13,4 +13,8 @@ namespace ane {
 	void EnginePhysicsComponent::ApplyForce(const Vector2& force) {
 		this->velocity += force;
 	}
+
+	void EnginePhysicsComponent::Read(const JSON_t& value) {
+		//
+	}
 }

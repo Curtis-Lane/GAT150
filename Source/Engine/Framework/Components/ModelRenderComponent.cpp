@@ -7,7 +7,9 @@ namespace ane {
 	CLASS_DEFINITION(ModelRenderComponent);
 
 	bool ModelRenderComponent::Initialize() {
-		this->model = GET_RESOURCE(Model, modelName);
+		if(!modelName.empty()) {
+			this->model = GET_RESOURCE(Model, modelName);
+		}
 
 		return true;
 	}

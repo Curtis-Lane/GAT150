@@ -15,4 +15,8 @@ namespace ane {
 
         return (distance <= radius);
     }
+
+    void CircleCollisionComponent::Read(const JSON_t& value) {
+        //
+    }
 }

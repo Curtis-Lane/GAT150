@@ -47,35 +47,6 @@ int main(int argc, char* argv[]) {
 	ane::seedRandom((unsigned int) time(nullptr));
 	ane::setFilePath("assets");
 
-	/* JSON stuff
-	rapidjson::Document document;
-	ane::JSON::Load("json.txt", document);
-
-	int i1;
-	ane::JSON::Read(document, "integer1", i1);
-	std::cout << i1 << std::endl;
-
-	int i2;
-	ane::JSON::Read(document, "integer2", i2);
-	std::cout << i2 << std::endl;
-
-	std::string str;
-	ane::JSON::Read(document, "string", str);
-	std::cout << str << std::endl;
-
-	bool b;
-	ane::JSON::Read(document, "boolean", b);
-	std::cout << b << std::endl;
-
-	float f;
-	ane::JSON::Read(document, "float", f);
-	std::cout << f << std::endl;
-
-	ane::Vector2 v2;
-	ane::JSON::Read(document, "vector2", v2);
-	std::cout << v2 << std::endl;
-	// end JSON stuff */
-
 	ane::globalRenderer.Initialize();
 	ane::globalRenderer.CreateWindow("CRAFTEROIDS", 800, 600);
 

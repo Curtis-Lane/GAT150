@@ -5,6 +5,14 @@
 #include "Actor.h"
 
 namespace ane {
+	bool Scene::Initialize() {
+		for(auto& actor : this->actors) {
+			actor->Initialize();
+		}
+
+		return true;
+	}
+
 	void Scene::Update(float deltaTime) {
 		// Remove destroyed actors and update non-destroyed actors
 		auto iter = this->actors.begin();
@@ -50,5 +58,30 @@ namespace ane {
 
 	void Scene::RemoveAll() {
 		this->actors.clear();
+	}
+
+	bool Scene::Load(const std::string& fileName) {
+		rapidjson::Document document;
+		if(!JSON::Load(fileName, document)) {
+			ERROR_LOG("Could not load scene file: " << fileName);
+			return false;
+		}
+
+		Read(document);
+
+		return true;
+	}
+
+	void Scene::Read(const JSON_t& value) {
+		if(HAS_DATA(value, actors) && GET_DATA(value, actors).IsArray()) {
+			for(auto& actorValue : GET_DATA(value, actors).GetArray()) {
+				std::string type;
+				READ_DATA(actorValue, type);
+
+				auto actor = CREATE_CLASS_BASE(Actor, type);
+				actor->Read(actorValue);
+				this->Add(std::move(actor));
+			}
+		}
 	}
 }

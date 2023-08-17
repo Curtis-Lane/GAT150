@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{192d2b05-d750-4904-a529-361f9c4aaa11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -16,7 +19,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="RocketComponent.cpp">
+    <ClCompile Include="Rocket.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SpaceGame.cpp">
@@ -33,7 +36,7 @@
     <ClInclude Include="Enemy.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="RocketComponent.h">
+    <ClInclude Include="Rocket.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SpaceGame.h">
@@ -42,5 +45,10 @@
     <ClInclude Include="Bomber.h">
       <Filter>Source</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Build\Assets\scene.json">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

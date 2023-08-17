@@ -37,6 +37,8 @@ bool SpaceGame::Initialize() {
 	ane::globalAudioSystem.PlayOneShot("C418 - Aria Math", true);
 
 	this->scene = std::make_unique<ane::Scene>();
+	this->scene->Load("scene.json");
+	this->scene->Initialize();
 
 	return true;
 }
@@ -193,6 +195,7 @@ void SpaceGame::Update(float deltaTime) {
 }
 
 void SpaceGame::Draw(ane::Renderer& renderer) {
+	this->scene->Draw(renderer);
 	if(this->state == State::Title) {
 		this->titleText->Draw(renderer, 335, 300);
 	}
@@ -203,5 +206,4 @@ void SpaceGame::Draw(ane::Renderer& renderer) {
 
 	this->livesText->Draw(renderer, 650, 30);
 	this->scoreText->Draw(renderer, 40, 30);
-	this->scene->Draw(renderer);
 }

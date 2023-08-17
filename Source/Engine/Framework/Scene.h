@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Actor.h"
-
 #include <list>
+
+#include "Actor.h"
 
 namespace ane {
 	class Renderer;
@@ -11,11 +11,15 @@ namespace ane {
 		public:
 			Scene() = default;
 
+			bool Initialize();
 			void Update(float deltaTime);
 			void Draw(Renderer& renderer);
 
 			void Add(std::unique_ptr<Actor> actor);
 			void RemoveAll();
+
+			bool Load(const std::string& fileName);
+			void Read(const JSON_t& value);
 
 			template<typename T>
 			T* GetActor();

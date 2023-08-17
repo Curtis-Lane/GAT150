@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Framework/Components/Component.h"
+#include "Framework/Actor.h"
+
 #include "Audio/AudioSystem.h"
 
-namespace ane {
-	class RocketComponent : public Component {
-		public:
-		/*
+class Rocket : public ane::Actor {
+	public:
+		
 		Rocket(float speed, const ane::Transform& transform, const std::string& fireSound) :
 			ane::Actor(transform) {
 			this->speed = speed;
 			this->lifeSpan = 2.0f;
 			ane::globalAudioSystem.PlayOneShot(fireSound);
 		}
-		*/
+		
 
 		//
 
@@ -21,9 +21,8 @@ namespace ane {
 
 		void Update(float deltaTime) override;
 		void OnCollision(Actor* other);
-		void Read(const JSON_t& value);
+		void Read(const ane::JSON_t& value);
 
-		private:
-			float speed = 0.0f;
-	};
-}
+	private:
+		float speed = 0.0f;
+};

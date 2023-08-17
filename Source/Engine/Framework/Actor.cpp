@@ -54,7 +54,7 @@ namespace ane {
 		READ_DATA(value, lifeSpan);
 
 		if(HAS_DATA(value, transform)) {
-			this->transform.Read(value);
+			this->transform.Read(GET_DATA(value, transform));
 		}
 
 		if(HAS_DATA(value, components) && GET_DATA(value, components).IsArray()) {
