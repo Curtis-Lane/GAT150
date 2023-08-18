@@ -3,7 +3,11 @@
 #include "Framework/Components/CollisionComponent.h"
 #include "Framework/Components/RenderComponent.h"
 
+CLASS_DEFINITION(Rocket);
+
 bool Rocket::Initialize() {
+	Actor::Initialize();
+
 	ane::CollisionComponent* collisionComponent = this->GetComponent<ane::CollisionComponent>();
 	if(collisionComponent != nullptr) {
 		ane::RenderComponent* renderComponent = this->GetComponent<ane::RenderComponent>();
@@ -32,5 +36,7 @@ void Rocket::OnCollision(Actor* other) {
 }
 
 void Rocket::Read(const ane::JSON_t& value) {
+	Actor::Read(value);
+
 	READ_DATA(value, speed);
 }

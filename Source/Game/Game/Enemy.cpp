@@ -1,8 +1,9 @@
 #include "Enemy.h"
 
+#include "Framework/Framework.h"
+#include "Audio/AudioSystem.h"
 #include "Player.h"
 #include "Rocket.h"
-#include "Framework/Framework.h"
 
 bool Enemy::Initialize() {
 	Actor::Initialize();
@@ -42,25 +43,13 @@ void Enemy::Update(float deltaTime) {
 	this->transform.position += forward * speed * ane::globalTime.GetDeltaTime();
 	this->transform.position.x = ane::Wrap(this->transform.position.x, static_cast<float> (ane::globalRenderer.GetWidth()));
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
-
-	//this->fireTimer -= deltaTime;
+	
 	if(this->fireTimer <= 0) {
 		this->fireTimer = this->fireRate;
-		// Fire weapon
-		ane::Transform rocketTransform(this->transform.position, this->transform.rotation, this->transform.scale * 0.66f);
-		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "zombie_hurt1");
-		rocket->tag = "Enemy";
-		// Create components
-		std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
-		component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
-		rocket->AddComponent(std::move(component));
 
-		std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-		collisionComponent->radius = 30.0f;
-		rocket->AddComponent(std::move(collisionComponent));
-
+		auto rocket = INSTANTIATE(Rocket, "EnemyRocket");
+		rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale * 0.66f);
 		rocket->Initialize();
-
 		this->scene->Add(std::move(rocket));
 	}
 }

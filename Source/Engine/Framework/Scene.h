@@ -16,7 +16,7 @@ namespace ane {
 			void Draw(Renderer& renderer);
 
 			void Add(std::unique_ptr<Actor> actor);
-			void RemoveAll();
+			void RemoveAll(bool force = false);
 
 			bool Load(const std::string& fileName);
 			void Read(const JSON_t& value);
@@ -24,7 +24,8 @@ namespace ane {
 			template<typename T>
 			T* GetActor();
 
-			//friend class Actor;
+			template<typename T = Actor>
+			T* GetActorByName(const std::string& name);
 
 		private:
 			std::list<std::unique_ptr<Actor>> actors;
@@ -36,6 +37,20 @@ namespace ane {
 			T* result = dynamic_cast<T*>(actor.get());
 			if(result != nullptr) {
 				return result;
+			}
+		}
+
+		return nullptr;
+	}
+
+	template<typename T>
+	inline T* Scene::GetActorByName(const std::string& name) {
+		for(std::unique_ptr<Actor>& actor : this->actors) {
+			if(actor->name == name) {
+				T* result = dynamic_cast<T*>(actor.get());
+				if(result != nullptr) {
+					return result;
+				}
 			}
 		}
 

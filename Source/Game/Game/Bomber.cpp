@@ -1,10 +1,23 @@
 #include "Bomber.h"
 
+#include "Framework/Framework.h"
 #include "Player.h"
 #include "Rocket.h"
-#include "Framework/Game.h"
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
+
+bool Bomber::Initialize() {
+	Actor::Initialize();
+
+	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
+	if(collisionComponent != nullptr) {
+		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
+		if(renderComponent != nullptr) {
+			float scale = this->transform.scale;
+			collisionComponent->radius = renderComponent->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Bomber::Update(float deltaTime) {
 	Actor::Update(deltaTime);

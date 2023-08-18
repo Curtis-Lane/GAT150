@@ -2,17 +2,19 @@
 
 #include "Framework/Actor.h"
 
-#include "Audio/AudioSystem.h"
+//#include "Audio/AudioSystem.h"
 
 class Rocket : public ane::Actor {
 	public:
-		
+		CLASS_DECLARATION(Rocket);
+		/*
 		Rocket(float speed, const ane::Transform& transform, const std::string& fireSound) :
 			ane::Actor(transform) {
 			this->speed = speed;
 			this->lifeSpan = 2.0f;
 			ane::globalAudioSystem.PlayOneShot(fireSound);
 		}
+		*/
 		
 
 		//
@@ -21,7 +23,6 @@ class Rocket : public ane::Actor {
 
 		void Update(float deltaTime) override;
 		void OnCollision(Actor* other);
-		void Read(const ane::JSON_t& value);
 
 	private:
 		float speed = 0.0f;

@@ -14,6 +14,7 @@ namespace ane {
 
 			Actor() = default;
 			Actor(const ane::Transform& transform) {this->transform = transform;}
+			Actor(const Actor& other);
 
 			virtual bool Initialize() override;
 			virtual void OnDestroy() override;
@@ -39,6 +40,8 @@ namespace ane {
 			std::string tag;
 			float lifeSpan = -1.0f;
 			bool destroyed = false;
+			bool persistent = false;
+			bool prototype = false;
 
 		protected:
 			std::vector<std::unique_ptr<Component>> components;

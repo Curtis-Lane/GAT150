@@ -13,6 +13,8 @@ class Bomber : public ane::Actor {
 			ane::globalAudioSystem.PlayOneShot("creeper_hiss3");
 		}
 
+		bool Initialize() override;
+
 		void Update(float deltaTime) override;
 		void OnCollision(Actor* other) override;
 

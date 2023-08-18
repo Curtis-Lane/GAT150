@@ -17,7 +17,9 @@ namespace ane {
 		// Remove destroyed actors and update non-destroyed actors
 		auto iter = this->actors.begin();
 		while(iter != this->actors.end()) {
-			(*iter)->Update(deltaTime);
+			if((*iter)->active) {
+				(*iter)->Update(deltaTime);
+			}
 
 			if((*iter)->destroyed) {
 				iter = this->actors.erase(iter);
@@ -47,7 +49,9 @@ namespace ane {
 
 	void Scene::Draw(Renderer& renderer) {
 		for(std::unique_ptr<Actor>& actor : this->actors) {
-			actor->Draw(renderer);
+			if(actor->active) {
+				actor->Draw(renderer);
+			}
 		}
 	}
 
@@ -56,8 +60,19 @@ namespace ane {
 		this->actors.push_back(std::move(actor));
 	}
 
-	void Scene::RemoveAll() {
-		this->actors.clear();
+	void Scene::RemoveAll(bool force) {
+		if(!force) {
+			auto iter = this->actors.begin();
+			while(iter != this->actors.end()) {
+				if(!(*iter)->persistent) {
+					iter = this->actors.erase(iter);
+				} else {
+					iter++;
+				}
+			}
+		} else {
+			this->actors.clear();
+		}
 	}
 
 	bool Scene::Load(const std::string& fileName) {
@@ -80,7 +95,13 @@ namespace ane {
 
 				auto actor = CREATE_CLASS_BASE(Actor, type);
 				actor->Read(actorValue);
-				this->Add(std::move(actor));
+
+				if(actor->prototype) {
+					std::string name = actor->name;
+					Factory::Instance().RegisterPrototype(name, std::move(actor));
+				} else {
+					this->Add(std::move(actor));
+				}
 			}
 		}
 	}

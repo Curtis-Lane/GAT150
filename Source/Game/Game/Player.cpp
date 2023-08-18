@@ -52,54 +52,21 @@ void Player::Update(float deltaTime) {
 	if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !ane::globalInputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE)) {
 		// This funky bit of code basically just checks if the player has the DoubleShot powerup
 		auto it = std::find(this->powerups.begin(), this->powerups.end(), Powerups::DoubleShot);
-
+		
 		if(it != this->powerups.end()) {
-			ane::Transform rocketTransform1(this->transform.position, this->transform.rotation + ane::DegreesToRadians(10), this->transform.scale / 2);
-			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform1, "bow");
-			rocket->tag = "Player";
-			// Create components
-			std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
-			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
-			rocket->AddComponent(std::move(component));
-
-			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-			collisionComponent->radius = 30.0f;
-			rocket->AddComponent(std::move(collisionComponent));
-
+			auto rocket = INSTANTIATE(Rocket, "PlayerRocket");
+			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation + ane::DegreesToRadians(10.0f), this->transform.scale / 2);
 			rocket->Initialize();
-
 			this->scene->Add(std::move(rocket));
 
-			ane::Transform rocketTransform2(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10), this->transform.scale / 2);
-			rocket = std::make_unique<Rocket>(400.0f, rocketTransform2, "bow");
-			rocket->tag = "Player";
-			// Create components
-			component = std::make_unique<ane::SpriteRenderComponent>();
-			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
-			rocket->AddComponent(std::move(component));
-
-			collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-			collisionComponent->radius = 30.0f;
-			rocket->AddComponent(std::move(collisionComponent));
-
+			rocket = INSTANTIATE(Rocket, "PlayerRocket");
+			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10.0f), this->transform.scale / 2);
 			rocket->Initialize();
-
 			this->scene->Add(std::move(rocket));
 		} else {
-			ane::Transform rocketTransform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
-			std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(400.0f, rocketTransform, "bow");
-			rocket->tag = "Player";
-			// Create components
-			std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
-			component->texture = GET_RESOURCE(ane::Texture, "arrow.png", ane::globalRenderer);
-			rocket->AddComponent(std::move(component));
-			
-			std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-			collisionComponent->radius = 30.0f;
-			rocket->AddComponent(std::move(collisionComponent));
-
+			auto rocket = INSTANTIATE(Rocket, "PlayerRocket");
+			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
 			rocket->Initialize();
-
 			this->scene->Add(std::move(rocket));
 		}
 	}

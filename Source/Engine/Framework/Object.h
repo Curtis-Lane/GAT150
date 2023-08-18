@@ -9,10 +9,11 @@
 #define CLASS_DECLARATION(classname) \
 		virtual const char* GetClassName() {return #classname;} \
 		virtual void Read(const rapidjson::Value& value); \
+		virtual std::unique_ptr<Object> Clone() {return std::make_unique<classname>(*this);} \
 		class Register { \
 			public: \
 				Register() { \
-					Factory::Instance().Register<classname>(#classname); \
+					ane::Factory::Instance().Register<classname>(#classname); \
 				} \
 		};
 
@@ -31,7 +32,8 @@ namespace ane {
 			virtual bool Initialize() {return true;}
 			virtual void OnDestroy() {;}
 
-		protected:
+		public:
 			std::string name;
+			bool active = true;
 	};
 }

@@ -5,6 +5,20 @@
 namespace ane {
 	CLASS_DEFINITION(Actor);
 
+	Actor::Actor(const Actor& other) {
+		this->name = other.name;
+		this->tag = other.tag;
+		this->lifeSpan = other.lifeSpan;
+		this->transform = other.transform;
+		this->scene = other.scene;
+		this->game = other.game;
+
+		for(auto& component : other.components) {
+			auto cloneComponent = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+			this->AddComponent(std::move(cloneComponent));
+		}
+	}
+
 	bool Actor::Initialize() {
 		for(auto& component : this->components) {
 			component->Initialize();
@@ -52,6 +66,8 @@ namespace ane {
 
 		READ_DATA(value, tag);
 		READ_DATA(value, lifeSpan);
+		READ_DATA(value, persistent);
+		READ_DATA(value, prototype);
 
 		if(HAS_DATA(value, transform)) {
 			this->transform.Read(GET_DATA(value, transform));

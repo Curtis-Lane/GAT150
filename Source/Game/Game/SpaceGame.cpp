@@ -52,6 +52,10 @@ void SpaceGame::Update(float deltaTime) {
 		case State::Title:
 			if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 				this->state = State::StartGame;
+				//auto background = this->scene->GetActorByName("Background");
+				//if(background != nullptr) {
+				//	background->active = false;
+				//}
 			}
 			break;
 		case State::StartGame:
