@@ -18,7 +18,7 @@
 		};
 
 // For source code
-#define CLASS_DEFINITION(classname) classname::Register register_class;
+#define CLASS_DEFINITION(classname) classname::Register register_class
 
 namespace ane {
 	class Object {

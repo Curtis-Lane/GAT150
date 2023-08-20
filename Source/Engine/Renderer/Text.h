@@ -3,7 +3,6 @@
 #include <string>
 #include <memory>
 
-#include "Core/Math/Color.h"
 #include "Font.h"
 
 struct SDL_Texture;
@@ -17,8 +16,9 @@ namespace ane {
 			}
 			~Text();
 
-			void Create(class Renderer& renderer, const std::string& text, const Color& color);
+			void Create(class Renderer& renderer, const std::string& text, const class Color& color);
 			void Draw(class Renderer& renderer, int x, int y);
+			void Draw(class Renderer& renderer, const class Transform& transform);
 
 			friend class Font;
 			friend class Renderer;

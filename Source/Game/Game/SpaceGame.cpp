@@ -15,8 +15,8 @@ bool SpaceGame::Initialize() {
 	this->scoreText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->scoreText->Create(ane::globalRenderer, "SCORE 0000", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-	this->titleText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	this->titleText->Create(ane::globalRenderer, "CRAFTEROIDS", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
+	//this->titleText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
+	//this->titleText->Create(ane::globalRenderer, "CRAFTEROIDS", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
 
 	this->gameOverText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
 	this->gameOverText->Create(ane::globalRenderer, "GAME OVER", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
@@ -52,10 +52,10 @@ void SpaceGame::Update(float deltaTime) {
 		case State::Title:
 			if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 				this->state = State::StartGame;
-				//auto background = this->scene->GetActorByName("Background");
-				//if(background != nullptr) {
-				//	background->active = false;
-				//}
+				auto titleText = this->scene->GetActorByName("Title");
+				if(titleText != nullptr) {
+					titleText->active = false;
+				}
 			}
 			break;
 		case State::StartGame:
@@ -189,6 +189,10 @@ void SpaceGame::Update(float deltaTime) {
 			if(this->stateTimer <= 0) {
 				this->scene->RemoveAll();
 				this->state = State::Title;
+				auto titleText = this->scene->GetActorByName("Title");
+				if(titleText != nullptr) {
+					titleText->active = true;
+				}
 			}
 			break;
 		default:
@@ -200,9 +204,6 @@ void SpaceGame::Update(float deltaTime) {
 
 void SpaceGame::Draw(ane::Renderer& renderer) {
 	this->scene->Draw(renderer);
-	if(this->state == State::Title) {
-		this->titleText->Draw(renderer, 335, 300);
-	}
 	if(this->state == State::GameOver) {
 		this->gameOverText->Draw(renderer, 335, 300);
 	}

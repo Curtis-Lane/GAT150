@@ -1,9 +1,10 @@
 INFO: Factory.h(65) Class registered: Rocket
+INFO: Factory.h(65) Class registered: TextRenderComponent
 INFO: Factory.h(65) Class registered: SpriteRenderComponent
 INFO: Factory.h(65) Class registered: ModelRenderComponent
 INFO: Factory.h(65) Class registered: EnginePhysicsComponent
 INFO: Factory.h(65) Class registered: CircleCollisionComponent
 INFO: Factory.h(65) Class registered: Actor
-INFO: Main.cpp(43) Initializing Engine
+INFO: Main.cpp(41) Initializing Engine
 INFO: Factory.h(72) Prototype Class registered: PlayerRocket
 INFO: Factory.h(72) Prototype Class registered: EnemyRocket

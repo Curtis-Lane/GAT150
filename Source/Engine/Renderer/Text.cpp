@@ -2,7 +2,6 @@
 
 #include <SDL2-2.28.0/include/SDL_ttf.h>
 
-#include "Font.h"
 #include "Renderer.h"
 
 namespace ane {
@@ -29,5 +28,23 @@ namespace ane {
 
 		SDL_Rect rect{x, y, width, height};
 		SDL_RenderCopy(renderer.renderer, this->texture, NULL, &rect);
+	}
+
+	void Text::Draw(Renderer& renderer, const Transform& transform) {
+		int width, height;
+		SDL_QueryTexture(this->texture, nullptr, nullptr, &width, &height);
+
+		Matrix3x3 matrix = transform.GetMatrix();
+		Vector2 position = matrix.GetTranslation();
+		Vector2 size = Vector2(width, height) * matrix.GetScale();
+
+		SDL_Rect dest;
+		dest.x = static_cast<int>(position.x - (size.x * 0.5f));
+		dest.y = static_cast<int>(position.y - (size.y * 0.5f));
+		dest.w = static_cast<int>(size.x);
+		dest.h = static_cast<int>(size.y);
+
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(renderer.renderer, this->texture, nullptr, &dest, RadiansToDegrees(matrix.GetRotation()), nullptr, SDL_FLIP_NONE);
 	}
 }

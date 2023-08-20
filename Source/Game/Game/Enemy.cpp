@@ -51,6 +51,7 @@ void Enemy::Update(float deltaTime) {
 		rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale * 0.66f);
 		rocket->Initialize();
 		this->scene->Add(std::move(rocket));
+		ane::globalAudioSystem.PlayOneShot("zombie_hurt1");
 	}
 }
 

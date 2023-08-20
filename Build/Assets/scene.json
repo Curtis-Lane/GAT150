@@ -6,13 +6,31 @@
 			"persistent" : true,
 			"transform" : {
 				"position" : [ 400, 300 ],
-				"scale" : 2.0,
+				"scale" : 1.275,
 				"rotation" : 0.0
 			},
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
 					"textureName" : "SPACE.png"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Title",
+			"persistent" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "CRAFTEROIDS"
 				}
 			]
 		},

@@ -36,6 +36,5 @@ class SpaceGame : public ane::Game {
 		std::unique_ptr<ane::Text> scoreText;
 		std::unique_ptr<ane::Text> livesText;
 		std::unique_ptr<ane::Text> powerupText;
-		std::unique_ptr<ane::Text> titleText;
 		std::unique_ptr<ane::Text> gameOverText;
 };

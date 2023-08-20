@@ -63,11 +63,15 @@ void Player::Update(float deltaTime) {
 			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10.0f), this->transform.scale / 2);
 			rocket->Initialize();
 			this->scene->Add(std::move(rocket));
+
+			ane::globalAudioSystem.PlayOneShot("bow");
 		} else {
 			auto rocket = INSTANTIATE(Rocket, "PlayerRocket");
 			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
 			rocket->Initialize();
 			this->scene->Add(std::move(rocket));
+
+			ane::globalAudioSystem.PlayOneShot("bow");
 		}
 	}
 
