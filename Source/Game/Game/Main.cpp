@@ -3,6 +3,7 @@
 #include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Physics/PhysicsSystem.h"
 #include "SpaceGame.h"
 
 #include <iostream>
@@ -50,6 +51,8 @@ int main(int argc, char* argv[]) {
 
 	ane::globalInputSystem.Initialize();
 	ane::globalAudioSystem.Initialize();
+
+	ane::PhysicsSystem::Instance().Initialize();
 
 	std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
 	game->Initialize();
