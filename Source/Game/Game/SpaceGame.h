@@ -31,10 +31,4 @@ class SpaceGame : public ane::Game {
 		float stateTimer = 0.0f;
 
 		float textTimer = -1.0f;
-
-		std::shared_ptr<ane::Font> font;
-		std::unique_ptr<ane::Text> scoreText;
-		std::unique_ptr<ane::Text> livesText;
-		std::unique_ptr<ane::Text> powerupText;
-		std::unique_ptr<ane::Text> gameOverText;
 };

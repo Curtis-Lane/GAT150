@@ -5,7 +5,7 @@
 			"name" : "Background",
 			"persistent" : true,
 			"transform" : {
-				"position" : [ 400, 300 ],
+				"position" : [400, 300],
 				"scale" : 1.275,
 				"rotation" : 0.0
 			},
@@ -35,13 +35,85 @@
 			]
 		},
 		{
+			"type" : "Actor",
+			"name" : "Game Over",
+			"persistent" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "GAME OVER"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Power Up",
+			"persistent" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 1.25,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : ""
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Lives",
+			"persistent" : true,
+			"transform" : {
+				"position" : [720, 45],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "LIVES 3"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Score",
+			"persistent" : true,
+			"transform" : {
+				"position" : [100, 45],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "SCORE 0000"
+				}
+			]
+		},
+		{
 			"type" : "Rocket",
 			"name" : "PlayerRocket",
 			"tag" : "Player",
 			"lifeSpan" : 2.0,
 			"prototype" : true,
 			"transform" : {
-				"position" : [ 400, 300 ],
+				"position" : [400, 300],
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
@@ -63,7 +135,7 @@
 			"lifeSpan" : 2.0,
 			"prototype" : true,
 			"transform" : {
-				"position" : [ 400, 300 ],
+				"position" : [400, 300],
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},

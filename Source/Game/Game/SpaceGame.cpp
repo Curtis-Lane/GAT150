@@ -10,23 +10,6 @@
 #include "Framework/Framework.h"
 
 bool SpaceGame::Initialize() {
-	// Create font / text
-	//this->font = GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24);
-	this->scoreText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	this->scoreText->Create(ane::globalRenderer, "SCORE 0000", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-	//this->titleText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	//this->titleText->Create(ane::globalRenderer, "CRAFTEROIDS", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-	this->gameOverText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	this->gameOverText->Create(ane::globalRenderer, "GAME OVER", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-	this->livesText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	this->livesText->Create(ane::globalRenderer, "LIVES 3", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-	this->powerupText = std::make_unique<ane::Text>(GET_RESOURCE(ane::Font, "ArcadeClassic.ttf", 24));
-	this->powerupText->Create(ane::globalRenderer, "", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-
 	// Load audio
 	ane::globalAudioSystem.AddAudio("bow", "bow.wav");
 	ane::globalAudioSystem.AddAudio("zombie_hurt1", "zombie_hurt1.wav");
@@ -50,6 +33,12 @@ void SpaceGame::Shutdown() {
 void SpaceGame::Update(float deltaTime) {
 	switch(this->state) {
 		case State::Title:
+			{
+				auto gameOverText = this->scene->GetActorByName("Game Over");
+				if(gameOverText != nullptr) {
+					gameOverText->active = false;
+				}
+			}
 			if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) {
 				this->state = State::StartGame;
 				auto titleText = this->scene->GetActorByName("Title");
@@ -97,7 +86,10 @@ void SpaceGame::Update(float deltaTime) {
 				this->textTimer -= deltaTime;
 			}
 			if(this->textTimer <= 0 && this->textTimer != -1.0f) {
-				this->powerupText->Create(ane::globalRenderer, "", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
+				auto powerUpText = this->scene->GetActorByName("Power Up");
+				if(powerUpText != nullptr) {
+					powerUpText->active = false;
+				}
 				this->textTimer = -1.0f;
 			}
 
@@ -108,7 +100,11 @@ void SpaceGame::Update(float deltaTime) {
 					auto it = std::find(player->powerups.begin(), player->powerups.end(), Player::Powerups::SlowMo);
 					if(it == player->powerups.end()) {
 						player->powerups.push_back(Player::Powerups::SlowMo);
-						this->powerupText->Create(ane::globalRenderer, "YOU HAVE EARNED SLOWMO!", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
+						auto powerUpText = this->scene->GetActorByName("Power Up");
+						if(powerUpText != nullptr) {
+							powerUpText->GetComponent<ane::TextRenderComponent>()->SetText("YOU HAVE EARNED SLOWMO!");
+							powerUpText->active = true;
+						}
 						this->textTimer = 5.0f;
 					}
 				}
@@ -121,7 +117,11 @@ void SpaceGame::Update(float deltaTime) {
 					auto it = std::find(player->powerups.begin(), player->powerups.end(), Player::Powerups::DoubleShot);
 					if(it == player->powerups.end()) {
 						player->powerups.push_back(Player::Powerups::DoubleShot);
-						this->powerupText->Create(ane::globalRenderer, "YOU HAVE EARNED DOUBLE SHOT!", ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
+						auto powerUpText = this->scene->GetActorByName("Power Up");
+						if(powerUpText != nullptr) {
+							powerUpText->GetComponent<ane::TextRenderComponent>()->SetText("YOU HAVE EARNED DOUBLE SHOT!");
+							powerUpText->active = true;
+						}
 						this->textTimer = 5.0f;
 					}
 				}
@@ -167,8 +167,18 @@ void SpaceGame::Update(float deltaTime) {
 					this->scene->Add(std::move(enemy));
 				}
 			}
-			this->scoreText->Create(ane::globalRenderer, "SCORE " + std::to_string(this->score), ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
-			this->livesText->Create(ane::globalRenderer, "LIVES " + std::to_string(this->lives), ane::Color(1.0f, 1.0f, 1.0f, 1.0f));
+			{
+				auto scoreText = this->scene->GetActorByName("Score");
+				if(scoreText != nullptr) {
+					scoreText->GetComponent<ane::TextRenderComponent>()->SetText("SCORE " + std::to_string(this->score));
+				}
+			}
+			{
+				auto livesText = this->scene->GetActorByName("Lives");
+				if(livesText != nullptr) {
+					livesText->GetComponent<ane::TextRenderComponent>()->SetText("LIVES " + std::to_string(this->lives));
+				}
+			}
 			break;
 		case State::PlayerDeadStart:
 			this->stateTimer = 3.0f;
@@ -185,6 +195,12 @@ void SpaceGame::Update(float deltaTime) {
 			}
 			break;
 		case State::GameOver:
+			{
+				auto gameOverText = this->scene->GetActorByName("Game Over");
+				if(gameOverText != nullptr) {
+					gameOverText->active = true;
+				}
+			}
 			this->stateTimer -= deltaTime;
 			if(this->stateTimer <= 0) {
 				this->scene->RemoveAll();
@@ -204,11 +220,4 @@ void SpaceGame::Update(float deltaTime) {
 
 void SpaceGame::Draw(ane::Renderer& renderer) {
 	this->scene->Draw(renderer);
-	if(this->state == State::GameOver) {
-		this->gameOverText->Draw(renderer, 335, 300);
-	}
-	this->powerupText->Draw(renderer, 300, 300);
-
-	this->livesText->Draw(renderer, 650, 30);
-	this->scoreText->Draw(renderer, 40, 30);
 }

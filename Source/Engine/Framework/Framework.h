@@ -12,6 +12,7 @@
 #include "Components/CollisionComponent.h"
 #include "Components/SpriteRenderComponent.h"
 #include "Components/ModelRenderComponent.h"
+#include "Components/TextRenderComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/EnginePhysicsComponent.h"
 #include "Components/CircleCollisionComponent.h"
