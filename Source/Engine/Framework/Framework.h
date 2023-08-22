@@ -23,3 +23,7 @@
 
 // Factories
 #include "Factory.h"
+
+// Events
+#include "Event/Event.h"
+#include "Event/EventManager.h"

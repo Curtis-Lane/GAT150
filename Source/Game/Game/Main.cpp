@@ -6,6 +6,7 @@
 #include "Physics/PhysicsSystem.h"
 #include "SpaceGame.h"
 
+#include <functional>
 #include <iostream>
 #include <vector>
 
@@ -38,7 +39,58 @@ class Star {
 		}
 };
 
+void print(int i) {
+	std::cout << i << std::endl;
+}
+
+int add(int i, int j) {
+	return i + j;
+}
+
+int sub(int i, int j) {
+	return i - j;
+}
+
+class A {
+	public:
+		int add(int i, int j) {
+			return i + j;
+		}
+};
+
+union Data {
+	int i;
+	bool b;
+	char c[6];
+};
+
 int main(int argc, char* argv[]) {
+	Data data;
+	data.i = 0;
+
+	std::cout << data.b << std::endl;
+
+	void (*func_ptr)(int) = &print;
+	func_ptr(5);
+
+	int (*op_ptr)(int, int);
+	op_ptr = &add;
+
+	std::cout << op_ptr(4, 4) << std::endl;
+
+	op_ptr = &sub;
+
+	std::cout << op_ptr(4, 4) << std::endl;
+
+	std::function<int(int, int)> op;
+	op = &add;
+
+	std::cout << op(5, 6) << std::endl;
+
+	A a;
+	op = std::bind(&A::add, &a, std::placeholders::_1, std::placeholders::_2);
+	std::cout << op(6, 6) << std::endl;
+
 	INFO_LOG("Initializing Engine");
 
 	ane::MemoryTracker::Initialize();

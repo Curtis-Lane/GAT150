@@ -105,9 +105,8 @@ void Player::OnCollision(Actor* other) {
 
 	if(health <= 0) {
 		if(!this->destroyed) {
-			this->game->SetLives(this->game->GetLives() - 1);
+			EVENT_DISPATCH("OnPlayerDead", 0);
 		}
-		dynamic_cast<SpaceGame*>(this->game)->SetState(SpaceGame::State::PlayerDeadStart);
 		
 		this->destroyed = true;
 	}

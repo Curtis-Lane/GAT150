@@ -46,7 +46,7 @@ void Bomber::OnCollision(Actor* other) {
 	}
 
 	if(health <= 0) {
-		this->game->AddPoints(100);
+		EVENT_DISPATCH("OnAddPoints", 100);
 
 		if(!this->destroyed) {
 			// Spawn particles when an enemy dies

@@ -23,6 +23,10 @@ bool SpaceGame::Initialize() {
 	this->scene->Load("scene.json");
 	this->scene->Initialize();
 
+	// Add events
+	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints);
+	EVENT_SUBSCRIBE("OnPlayerDead", SpaceGame::OnPlayerDead);
+
 	return true;
 }
 
@@ -220,4 +224,13 @@ void SpaceGame::Update(float deltaTime) {
 
 void SpaceGame::Draw(ane::Renderer& renderer) {
 	this->scene->Draw(renderer);
+}
+
+void SpaceGame::OnAddPoints(const ane::Event& event) {
+	this->score += std::get<int>(event.data);
+}
+
+void SpaceGame::OnPlayerDead(const ane::Event& event) {
+	this->lives--;
+	this->state = State::PlayerDeadStart;
 }

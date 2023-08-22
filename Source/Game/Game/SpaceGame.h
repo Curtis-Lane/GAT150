@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Framework/Event/EventManager.h"
 #include "Framework/Game.h"
 #include "Renderer/Text.h"
 
-class SpaceGame : public ane::Game {
+class SpaceGame : public ane::Game, ane::IEventListener {
 	public:
 		enum class State {
 			Title,
@@ -22,6 +23,8 @@ class SpaceGame : public ane::Game {
 		virtual void Draw(class ane::Renderer& renderer) override;
 
 		void SetState(State state) {this->state = state;}
+		void OnAddPoints(const ane::Event& event);
+		void OnPlayerDead(const ane::Event& event);
 
 	private:
 		State state = State::Title;

@@ -59,8 +59,9 @@ void Enemy::OnCollision(Actor* other) {
 	if(dynamic_cast<Rocket*>(other) != nullptr && other->tag == "Player") {
 		health -= 10;
 	}
+
 	if(health <= 0) {
- 		this->game->AddPoints(100);
+		EVENT_DISPATCH("OnAddPoints", 100);
 
 		if(!this->destroyed) {
 			// Spawn particles when an enemy dies

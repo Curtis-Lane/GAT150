@@ -5,6 +5,8 @@ INFO: Factory.h(65) Class registered: ModelRenderComponent
 INFO: Factory.h(65) Class registered: EnginePhysicsComponent
 INFO: Factory.h(65) Class registered: CircleCollisionComponent
 INFO: Factory.h(65) Class registered: Actor
-INFO: Main.cpp(42) Initializing Engine
+INFO: Main.cpp(94) Initializing Engine
 INFO: Factory.h(72) Prototype Class registered: PlayerRocket
 INFO: Factory.h(72) Prototype Class registered: EnemyRocket
+INFO: EventManager.cpp(16) Event subscribed: OnAddPoints
+INFO: EventManager.cpp(16) Event subscribed: OnPlayerDead
