@@ -9,5 +9,6 @@ namespace ane {
 
 			virtual void Update(float deltaTime) override;
 			virtual void ApplyForce(const Vector2& force) override;
+			virtual void ApplyTorque(float torque) override;
 	};
 }

@@ -1,14 +1,13 @@
 #include "Player.h"
 
-#include "Framework/Components/SpriteRenderComponent.h"
-#include "Framework/Components/PhysicsComponent.h"
-#include "Framework/Components/CircleCollisionComponent.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Framework/Scene.h"
+#include "Framework/Framework.h"
+#include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
 #include "SpaceGame.h"
 #include "Rocket.h"
 #include "Bomber.h"
+
+CLASS_DEFINITION(Player);
 
 bool Player::Initialize() {
 	Actor::Initialize();
@@ -37,7 +36,8 @@ void Player::Update(float deltaTime) {
 	} else if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_D) || ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_RIGHT)) {
 		rotate += 1.0f;
 	}
-	this->transform.rotation += rotate * turnRate * ane::globalTime.GetDeltaTime();
+	//this->transform.rotation += rotate * turnRate * ane::globalTime.GetDeltaTime();
+	this->physicsComponent->ApplyTorque(rotate * turnRate);
 
 	float thrust = 0.0f;
 	if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_W) || ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_UP)) {
@@ -111,4 +111,11 @@ void Player::OnCollision(Actor* other) {
 		this->destroyed = true;
 	}
 }
- 
+
+void Player::Read(const ane::JSON_t& value) {
+	Actor::Read(value);
+
+	READ_DATA(value, speed);
+	READ_DATA(value, turnRate);
+	READ_DATA(value, health);
+}

@@ -6,6 +6,8 @@
 
 #define READ_DATA(value, data) ane::JSON::Read(value, #data, data)
 #define READ_DATA_REQUIRED(value, data) ane::JSON::Read(value, #data, data, true)
+#define READ_NAME_DATA(value, name, data) ane::JSON::Read(value, name, data)
+#define READ_NAME_DATA_REQUIRED(value, name, data) ane::JSON::Read(value, name, data, true)
 #define HAS_DATA(value, data) value.HasMember(#data)
 #define GET_DATA(value, data) value[#data]
 

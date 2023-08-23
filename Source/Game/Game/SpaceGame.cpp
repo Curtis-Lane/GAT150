@@ -60,24 +60,8 @@ void SpaceGame::Update(float deltaTime) {
 			this->scene->RemoveAll();
 			{
 				// Create Player
-				std::unique_ptr<Player> player = std::make_unique<Player>(7.5f, ane::Pi, ane::Transform(ane::vec2(400, 300), 0.0f, 1.0f));
-				player->tag = "Player";
+				std::unique_ptr<Player> player = INSTANTIATE(Player, "Player");
 				player->game = this;
-
-				// Create sprite component
-				std::unique_ptr<ane::SpriteRenderComponent> renderComponent = CREATE_CLASS(SpriteRenderComponent);
-				renderComponent->texture = GET_RESOURCE(ane::Texture, "steve.png", ane::globalRenderer);
-				player->AddComponent(std::move(renderComponent));
-
-				// Create physics component
-				std::unique_ptr<ane::EnginePhysicsComponent> physicsComponent = CREATE_CLASS(EnginePhysicsComponent);
-				physicsComponent->damping = 0.9f;
-				player->AddComponent(std::move(physicsComponent));
-
-				// Create collision component
-				std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = CREATE_CLASS(CircleCollisionComponent);
-				collisionComponent->radius = 30.0f;
-				player->AddComponent(std::move(collisionComponent));
 
 				player->Initialize();
 
@@ -137,34 +121,18 @@ void SpaceGame::Update(float deltaTime) {
 
 				if(ane::random(10) < 7) {
 					// Create zombie
-					std::unique_ptr enemy = std::make_unique<Enemy>(ane::randomf(75.0f, 150.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.6f));
-					enemy->tag = "Enemy";
+					std::unique_ptr enemy = INSTANTIATE(Enemy, "Enemy");
+					enemy->transform = ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.6f);
 					enemy->game = this;
-					// Create components
-					std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
-					component->texture = GET_RESOURCE(ane::Texture, "zombie.png", ane::globalRenderer);
-					enemy->AddComponent(std::move(component));
-
-					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-					collisionComponent->radius = 30.0f;
-					enemy->AddComponent(std::move(collisionComponent));
 
 					enemy->Initialize();
 
 					this->scene->Add(std::move(enemy));
 				} else {
 					// Create creeper
-					std::unique_ptr enemy = std::make_unique<Bomber>(ane::randomf(150.0f, 250.0f), ane::Pi, ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.55f));
-					enemy->tag = "Enemy";
+					std::unique_ptr enemy = INSTANTIATE(Bomber, "Bomber");
+					enemy->transform = ane::Transform(ane::vec2(ane::random(ane::globalRenderer.GetWidth()), ane::random(ane::globalRenderer.GetHeight())), ane::randomf(ane::TwoPi), 0.55f);
 					enemy->game = this;
-					// Create components
-					std::unique_ptr<ane::SpriteRenderComponent> component = std::make_unique<ane::SpriteRenderComponent>();
-					component->texture = GET_RESOURCE(ane::Texture, "creeper.png", ane::globalRenderer);
-					enemy->AddComponent(std::move(component));
-
-					std::unique_ptr<ane::CircleCollisionComponent> collisionComponent = std::make_unique<ane::CircleCollisionComponent>();
-					collisionComponent->radius = 30.0f;
-					enemy->AddComponent(std::move(collisionComponent));
 
 					enemy->Initialize();
 

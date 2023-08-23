@@ -107,6 +107,98 @@
 			]
 		},
 		{
+			"type" : "Player",
+			"name" : "Player",
+			"tag" : "Player",
+			"prototype" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"speed" : 10.0,
+			"turnRate" : 5.0,
+			"health" : 100,
+			"components" : [
+				{
+					"type" : "SpriteRenderComponent",
+					"textureName" : "steve.png"
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.98,
+					"angularDamping" : 2.0,
+					"gravityScale" : 0.0
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [122, 122]
+				}
+			]
+		},
+		{
+			"type" : "Enemy",
+			"name" : "Enemy",
+			"tag" : "Enemy",
+			"prototype" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 0.6,
+				"rotation" : 0.0
+			},
+			"speed" : 7.5,
+			"turnRate" : 3.14,
+			"health" : 25,
+			"fireRate" : 0.5,
+			"fireTimer" : 0.5,
+			"components" : [
+				{
+					"type" : "SpriteRenderComponent",
+					"textureName" : "zombie.png"
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.98,
+					"angularDamping" : 2.0,
+					"gravityScale" : 0.0
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [122, 122]
+				}
+			]
+		},
+		{
+			"type" : "Bomber",
+			"name" : "Bomber",
+			"tag" : "Enemy",
+			"prototype" : true,
+			"transform" : {
+				"position" : [400, 300],
+				"scale" : 0.55,
+				"rotation" : 0.0
+			},
+			"speed" : 7.5,
+			"turnRate" : 3.14,
+			"health" : 25,
+			"components" : [
+				{
+					"type" : "SpriteRenderComponent",
+					"textureName" : "creeper.png"
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.98,
+					"angularDamping" : 2.0,
+					"gravityScale" : 0.0
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [122, 122]
+				}
+			]
+		},
+		{
 			"type" : "Rocket",
 			"name" : "PlayerRocket",
 			"tag" : "Player",

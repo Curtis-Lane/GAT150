@@ -2,16 +2,11 @@
 
 #include "Framework/Actor.h"
 
-#include "Audio/AudioSystem.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Bomber : public ane::Actor {
 	public:
-		Bomber(float speed, float turnRate, const ane::Transform& transform) :
-			ane::Actor(transform) {
-			this->speed = speed;
-			this->turnRate = turnRate;
-			ane::globalAudioSystem.PlayOneShot("creeper_hiss3");
-		}
+		CLASS_DECLARATION(Bomber);
 
 		bool Initialize() override;
 
@@ -22,4 +17,6 @@ class Bomber : public ane::Actor {
 		float speed = 0.0f;
 		float turnRate = 0.0f;
 		int health = 15;
+
+		ane::PhysicsComponent* physicsComponent = nullptr;
 };

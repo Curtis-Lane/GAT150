@@ -14,11 +14,7 @@ class Player : public ane::Actor {
 		};
 
 	public:
-		Player(float speed, float turnRate, const ane::Transform& transform) :
-			ane::Actor(transform) {
-			this->speed = speed;
-			this->turnRate = turnRate;
-		}
+		CLASS_DECLARATION(Player);
 
 		bool Initialize() override;
 		void Update(float deltaTime) override;

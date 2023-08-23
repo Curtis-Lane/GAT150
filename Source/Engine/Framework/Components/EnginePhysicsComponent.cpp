@@ -14,6 +14,10 @@ namespace ane {
 		this->velocity += force;
 	}
 
+	void EnginePhysicsComponent::ApplyTorque(float torque) {
+		//
+	}
+
 	void EnginePhysicsComponent::Read(const JSON_t& value) {
 		//
 	}

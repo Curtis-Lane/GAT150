@@ -2,15 +2,11 @@
 
 #include "Framework/Actor.h"
 
+#include "Framework/Components/PhysicsComponent.h"
+
 class Enemy : public ane::Actor {
 	public:
-		Enemy(float speed, float turnRate, const ane::Transform& transform) :
-			ane::Actor(transform) {
-			this->speed = speed;
-			this->turnRate = turnRate;
-			this->fireRate = 0.5f;
-			this->fireTimer = this->fireRate;
-		}
+		CLASS_DECLARATION(Enemy);
 
 		bool Initialize() override;
 
@@ -24,4 +20,6 @@ class Enemy : public ane::Actor {
 
 		float fireRate = 0.0f;
 		float fireTimer = 0.0f;
+
+		ane::PhysicsComponent* physicsComponent = nullptr;
 };

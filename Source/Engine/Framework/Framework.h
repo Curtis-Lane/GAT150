@@ -6,16 +6,24 @@
 #include "Game.h"
 #include "Scene.h"
 
-// Components
+// Base Components
 #include "Components/Component.h"
 #include "Components/RenderComponent.h"
 #include "Components/CollisionComponent.h"
+#include "Components/PhysicsComponent.h"
+
+// Render Components
 #include "Components/SpriteRenderComponent.h"
 #include "Components/ModelRenderComponent.h"
 #include "Components/TextRenderComponent.h"
-#include "Components/PhysicsComponent.h"
+
+// Physics Components
 #include "Components/EnginePhysicsComponent.h"
+#include "Components/Box2DPhysicsComponent.h"
+
+// Collision Components
 #include "Components/CircleCollisionComponent.h"
+#include "Components/Box2DCollisionComponent.h"
 
 // Resources
 #include "Resource/Resource.h"

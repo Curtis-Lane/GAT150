@@ -5,9 +5,12 @@
 #include "Player.h"
 #include "Rocket.h"
 
+CLASS_DEFINITION(Enemy);
+
 bool Enemy::Initialize() {
 	Actor::Initialize();
 
+	this->physicsComponent = GetComponent<ane::PhysicsComponent>();
 	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
 	if(collisionComponent != nullptr) {
 		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
@@ -31,7 +34,8 @@ void Enemy::Update(float deltaTime) {
 
 		// Turn towards player
 		float turnAngle = ane::vec2::SignedAngle(forward, direction.Normalized());
-		this->transform.rotation += turnAngle * deltaTime;
+		//this->transform.rotation += turnAngle * deltaTime;
+		this->physicsComponent->ApplyTorque(turnAngle);
 		
 		// Check if we are facing the player
 		if(std::fabs(turnAngle) < ane::DegreesToRadians(30.0f)) {
@@ -40,7 +44,8 @@ void Enemy::Update(float deltaTime) {
 		}
 	}
 
-	this->transform.position += forward * speed * ane::globalTime.GetDeltaTime();
+	this->physicsComponent->ApplyForce(forward * speed);
+	//this->transform.position += forward * speed * ane::globalTime.GetDeltaTime();
 	this->transform.position.x = ane::Wrap(this->transform.position.x, static_cast<float> (ane::globalRenderer.GetWidth()));
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
 	
@@ -89,4 +94,15 @@ void Enemy::OnCollision(Actor* other) {
 
 		this->destroyed = true;
 	}
+}
+
+void Enemy::Read(const ane::JSON_t& value) {
+	Actor::Read(value);
+
+	READ_DATA(value, speed);
+	READ_DATA(value, turnRate);
+	READ_DATA(value, health);
+
+	READ_DATA(value, fireRate);
+	READ_DATA(value, fireTimer);
 }

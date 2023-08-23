@@ -1,12 +1,16 @@
 #include "Bomber.h"
 
 #include "Framework/Framework.h"
+#include "Audio/AudioSystem.h"
 #include "Player.h"
 #include "Rocket.h"
+
+CLASS_DEFINITION(Bomber);
 
 bool Bomber::Initialize() {
 	Actor::Initialize();
 
+	this->physicsComponent = GetComponent<ane::PhysicsComponent>();
 	ane::CollisionComponent* collisionComponent = GetComponent<ane::CollisionComponent>();
 	if(collisionComponent != nullptr) {
 		ane::RenderComponent* renderComponent = GetComponent<ane::RenderComponent>();
@@ -15,6 +19,8 @@ bool Bomber::Initialize() {
 			collisionComponent->radius = renderComponent->GetRadius() * scale;
 		}
 	}
+
+	ane::globalAudioSystem.PlayOneShot("creeper_hiss3");
 
 	return true;
 }
@@ -30,10 +36,12 @@ void Bomber::Update(float deltaTime) {
 
 		// Turn towards player
 		float turnAngle = ane::vec2::SignedAngle(forward, direction.Normalized());
-		this->transform.rotation += turnAngle * deltaTime;
+		//this->transform.rotation += turnAngle * deltaTime;
+		this->physicsComponent->ApplyTorque(turnAngle);
 	}
 
-	this->transform.position += forward * speed * ane::globalTime.GetDeltaTime();
+	this->physicsComponent->ApplyForce(forward * speed);
+	//this->transform.position += forward * speed * ane::globalTime.GetDeltaTime();
 	this->transform.position.x = ane::Wrap(this->transform.position.x, static_cast<float> (ane::globalRenderer.GetWidth()));
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
 }
@@ -74,4 +82,12 @@ void Bomber::OnCollision(Actor* other) {
 
 		this->destroyed = true;
 	}
+}
+
+void Bomber::Read(const ane::JSON_t& value) {
+	Actor::Read(value);
+
+	READ_DATA(value, speed);
+	READ_DATA(value, turnRate);
+	READ_DATA(value, health);
 }
