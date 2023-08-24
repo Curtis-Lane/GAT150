@@ -11,16 +11,16 @@
 
 bool SpaceGame::Initialize() {
 	// Load audio
-	ane::globalAudioSystem.AddAudio("bow", "bow.wav");
-	ane::globalAudioSystem.AddAudio("zombie_hurt1", "zombie_hurt1.wav");
-	ane::globalAudioSystem.AddAudio("zombie_death", "zombie_death.wav");
-	ane::globalAudioSystem.AddAudio("creeper_hiss3", "creeper_hiss3.wav");
-	ane::globalAudioSystem.AddAudio("creeper_death", "creeper_death.wav");
-	ane::globalAudioSystem.AddAudio("C418 - Aria Math", "C418_AriaMath.wav");
+	ane::globalAudioSystem.AddAudio("bow", "Audio/bow.wav");
+	ane::globalAudioSystem.AddAudio("zombie_hurt1", "Audio/zombie_hurt1.wav");
+	ane::globalAudioSystem.AddAudio("zombie_death", "Audio/zombie_death.wav");
+	ane::globalAudioSystem.AddAudio("creeper_hiss3", "Audio/creeper_hiss3.wav");
+	ane::globalAudioSystem.AddAudio("creeper_death", "Audio/creeper_death.wav");
+	ane::globalAudioSystem.AddAudio("C418 - Aria Math", "Audio/C418_AriaMath.wav");
 	ane::globalAudioSystem.PlayOneShot("C418 - Aria Math", true);
 
 	this->scene = std::make_unique<ane::Scene>();
-	this->scene->Load("scene.json");
+	this->scene->Load("Scenes/space_scene.json");
 	this->scene->Initialize();
 
 	// Add events

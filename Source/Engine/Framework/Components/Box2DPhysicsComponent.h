@@ -12,10 +12,11 @@ namespace ane {
 
 			bool Initialize() override;
 			void OnDestroy() override;
-
 			void Update(float deltaTime) override;
+
 			virtual void ApplyForce(const Vector2& force) override;
 			virtual void ApplyTorque(float torque) override;
+			virtual void SetVelocity(const Vector2& velocity) override;
 
 			friend class Box2DCollisionComponent;
 

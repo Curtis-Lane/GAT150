@@ -36,6 +36,10 @@ namespace ane {
 		this->body->ApplyTorque(torque, true);
 	}
 
+	void Box2DPhysicsComponent::SetVelocity(const Vector2& velocity) {
+		this->body->SetLinearVelocity(VEC2_TO_B2VEC2(velocity));
+	}
+
 	void Box2DPhysicsComponent::Read(const JSON_t& value) {
 		READ_NAME_DATA(value, "damping", data.damping);
 		READ_NAME_DATA(value, "angularDamping", data.angularDamping);

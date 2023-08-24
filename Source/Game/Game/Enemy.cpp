@@ -53,14 +53,14 @@ void Enemy::Update(float deltaTime) {
 		this->fireTimer = this->fireRate;
 
 		auto rocket = INSTANTIATE(Rocket, "EnemyRocket");
-		rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale * 0.66f);
+		rocket->transform = ane::Transform(this->transform.position + forward * 30, this->transform.rotation, this->transform.scale * 0.66f);
 		rocket->Initialize();
 		this->scene->Add(std::move(rocket));
 		ane::globalAudioSystem.PlayOneShot("zombie_hurt1");
 	}
 }
 
-void Enemy::OnCollision(Actor* other) {
+void Enemy::OnCollisionEnter(Actor* other) {
 	if(dynamic_cast<Rocket*>(other) != nullptr && other->tag == "Player") {
 		health -= 10;
 	}

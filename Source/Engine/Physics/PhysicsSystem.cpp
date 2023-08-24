@@ -5,6 +5,9 @@ namespace ane {
 		b2Vec2 gravity(0.0f, 10.0f);
 		this->world = std::make_unique<b2World>(gravity);
 
+		this->contactListener = std::make_unique<ContactListener>();
+		this->world->SetContactListener(this->contactListener.get());
+
 		return true;
 	}
 

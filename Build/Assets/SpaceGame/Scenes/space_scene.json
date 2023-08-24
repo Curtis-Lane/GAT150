@@ -12,7 +12,7 @@
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "SPACE.png"
+					"textureName" : "Textures/SPACE.png"
 				}
 			]
 		},
@@ -28,7 +28,7 @@
 			"components" : [
 				{
 					"type" : "TextRenderComponent",
-					"fontName" : "ArcadeClassic.ttf",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
 					"text" : "CRAFTEROIDS"
 				}
@@ -46,7 +46,7 @@
 			"components" : [
 				{
 					"type" : "TextRenderComponent",
-					"fontName" : "ArcadeClassic.ttf",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
 					"text" : "GAME OVER"
 				}
@@ -64,7 +64,7 @@
 			"components" : [
 				{
 					"type" : "TextRenderComponent",
-					"fontName" : "ArcadeClassic.ttf",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
 					"text" : ""
 				}
@@ -82,7 +82,7 @@
 			"components" : [
 				{
 					"type" : "TextRenderComponent",
-					"fontName" : "ArcadeClassic.ttf",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
 					"text" : "LIVES 3"
 				}
@@ -100,7 +100,7 @@
 			"components" : [
 				{
 					"type" : "TextRenderComponent",
-					"fontName" : "ArcadeClassic.ttf",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
 					"text" : "SCORE 0000"
 				}
@@ -116,23 +116,24 @@
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
-			"speed" : 10.0,
-			"turnRate" : 5.0,
+			"speed" : 20.0,
+			"turnRate" : 30.0,
 			"health" : 100,
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "steve.png"
+					"textureName" : "Textures/steve.png"
 				},
 				{
 					"type" : "Box2DPhysicsComponent",
 					"damping" : 0.98,
-					"angularDamping" : 2.0,
+					"angularDamping" : 4.0,
 					"gravityScale" : 0.0
 				},
 				{
 					"type" : "Box2DCollisionComponent",
-					"size" : [122, 122]
+					"size" : [122, 122],
+					"isTrigger" : true
 				}
 			]
 		},
@@ -154,7 +155,7 @@
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "zombie.png"
+					"textureName" : "Textures/zombie.png"
 				},
 				{
 					"type" : "Box2DPhysicsComponent",
@@ -164,7 +165,8 @@
 				},
 				{
 					"type" : "Box2DCollisionComponent",
-					"size" : [122, 122]
+					"size" : [122, 122],
+					"isTrigger" : true
 				}
 			]
 		},
@@ -184,7 +186,7 @@
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "creeper.png"
+					"textureName" : "Textures/creeper.png"
 				},
 				{
 					"type" : "Box2DPhysicsComponent",
@@ -194,7 +196,8 @@
 				},
 				{
 					"type" : "Box2DCollisionComponent",
-					"size" : [122, 122]
+					"size" : [122, 122],
+					"isTrigger" : true
 				}
 			]
 		},
@@ -209,14 +212,23 @@
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
-			"speed" :  400.0,
+			"speed" :  4.0,
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "arrow.png"
+					"textureName" : "Textures/arrow.png"
 				},
 				{
-					"type" :  "CircleCollisionComponent"
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.0,
+					"angularDamping" : 2.0,
+					"gravityScale" : 0.0
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [8, 16],
+					"isTrigger" : true,
+					"constrainAngle" : true
 				}
 			]
 		},
@@ -231,14 +243,23 @@
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
-			"speed" :  400.0,
+			"speed" :  4.0,
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "arrow.png"
+					"textureName" : "Textures/arrow.png"
 				},
 				{
-					"type" :  "CircleCollisionComponent"
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.0,
+					"angularDamping" : 2.0,
+					"gravityScale" : 0.0
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [8, 16],
+					"isTrigger" : true,
+					"constrainAngle" : true
 				}
 			]
 		}

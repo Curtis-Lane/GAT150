@@ -30,6 +30,8 @@ bool Player::Initialize() {
 void Player::Update(float deltaTime) {
 	Actor::Update(deltaTime);
 
+	ane::vec2 forward = ane::vec2(0, -1).Rotate(this->transform.rotation);
+
 	float rotate = 0.0f;
 	if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_A) || ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_LEFT)) {
 		rotate += -1.0f;
@@ -55,19 +57,19 @@ void Player::Update(float deltaTime) {
 		
 		if(it != this->powerups.end()) {
 			auto rocket = INSTANTIATE(Rocket, "PlayerRocket");
-			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation + ane::DegreesToRadians(10.0f), this->transform.scale / 2);
+			rocket->transform = ane::Transform(this->transform.position + forward * 30, this->transform.rotation + ane::DegreesToRadians(10.0f), this->transform.scale / 2);
 			rocket->Initialize();
 			this->scene->Add(std::move(rocket));
 
 			rocket = INSTANTIATE(Rocket, "PlayerRocket");
-			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation - ane::DegreesToRadians(10.0f), this->transform.scale / 2);
+			rocket->transform = ane::Transform(this->transform.position + forward * 30, this->transform.rotation - ane::DegreesToRadians(10.0f), this->transform.scale / 2);
 			rocket->Initialize();
 			this->scene->Add(std::move(rocket));
 
 			ane::globalAudioSystem.PlayOneShot("bow");
 		} else {
 			auto rocket = INSTANTIATE(Rocket, "PlayerRocket");
-			rocket->transform = ane::Transform(this->transform.position, this->transform.rotation, this->transform.scale / 2);
+			rocket->transform = ane::Transform(this->transform.position + forward * 30, this->transform.rotation, this->transform.scale / 2);
 			rocket->Initialize();
 			this->scene->Add(std::move(rocket));
 
@@ -88,7 +90,7 @@ void Player::Update(float deltaTime) {
 		ane::globalTime.SetTimeScale(1.0f);
 	}
 
-	ane::vec2 forward = ane::vec2(0, -1).Rotate(this->transform.rotation);
+	//ane::vec2 forward = ane::vec2(0, -1).Rotate(this->transform.rotation);
 
 	this->physicsComponent->ApplyForce(forward * this->speed * thrust);
 
@@ -96,7 +98,7 @@ void Player::Update(float deltaTime) {
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
 }
 
-void Player::OnCollision(Actor* other) {
+void Player::OnCollisionEnter(Actor* other) {
 	if(dynamic_cast<Rocket*>(other) != nullptr && other->tag == "Enemy") {
 		health -= 10;
 	} else if(dynamic_cast<Bomber*>(other) != nullptr && other->tag == "Enemy") {

@@ -22,31 +22,12 @@ namespace ane {
 			}
 
 			if((*iter)->destroyed) {
+				(*iter)->OnDestroy();
 				iter = this->actors.erase(iter);
 			} else {
 				iter++;
 			}
 		}
-
-		/*
-		// Check collisions
-		for(auto iter1 = this->actors.begin(); iter1 != this->actors.end(); iter1++) {
-			for(auto iter2 = std::next(iter1, 1); iter2 != this->actors.end(); iter2++) {
-				CollisionComponent* collision1 = (*iter1)->GetComponent<CollisionComponent>();
-				CollisionComponent* collision2 = (*iter2)->GetComponent<CollisionComponent>();
-
-				if(collision1 == nullptr || collision2 == nullptr) {
-					continue;
-				}
-
-				if(collision1->CheckCollision(collision2)) {
-					// boom
-					(*iter1)->OnCollision(iter2->get());
-					(*iter2)->OnCollision(iter1->get());
-				}
-			}
-		}
-		*/
 	}
 
 	void Scene::Draw(Renderer& renderer) {

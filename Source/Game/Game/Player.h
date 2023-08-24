@@ -18,7 +18,7 @@ class Player : public ane::Actor {
 
 		bool Initialize() override;
 		void Update(float deltaTime) override;
-		void OnCollision(Actor* other) override;
+		void OnCollisionEnter(Actor* other) override;
 
 		friend class SpaceGame;
 

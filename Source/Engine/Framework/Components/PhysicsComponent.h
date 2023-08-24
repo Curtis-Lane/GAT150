@@ -8,6 +8,7 @@ namespace ane {
 		public:
 			virtual void ApplyForce(const Vector2& force) = 0;
 			virtual void ApplyTorque(float torque) = 0;
+			virtual void SetVelocity(const Vector2& velocity) {this->velocity = velocity;}
 
 		public:
 			Vector2 velocity;

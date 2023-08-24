@@ -46,7 +46,7 @@ void Bomber::Update(float deltaTime) {
 	this->transform.position.y = ane::Wrap(this->transform.position.y, static_cast<float> (ane::globalRenderer.GetHeight()));
 }
 
-void Bomber::OnCollision(Actor* other) {
+void Bomber::OnCollisionEnter(Actor* other) {
 	if(dynamic_cast<Rocket*>(other) != nullptr && other->tag == "Player") {
 		this->health -= 10;
 	} else if(dynamic_cast<Player*>(other) != nullptr && other->tag == "Player") {

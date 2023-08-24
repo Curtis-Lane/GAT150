@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
 	ane::MemoryTracker::Initialize();
 
 	ane::seedRandom((unsigned int) time(nullptr));
-	ane::setFilePath("assets");
+	ane::setFilePath("assets/SpaceGame");
 
 	ane::globalRenderer.Initialize();
 	ane::globalRenderer.CreateWindow("CRAFTEROIDS", 800, 600);
