@@ -12,6 +12,15 @@ namespace ane {
 			this->texture = GET_RESOURCE(Texture, textureName, globalRenderer);
 		}
 
+		if(this->source.w == 0 && this->source.h == 0) {
+			if(this->texture != nullptr) {
+				this->source.x = 0;
+				this->source.y = 0;
+				this->source.w = static_cast<int>(this->texture->GetSize().x);
+				this->source.h = static_cast<int>(this->texture->GetSize().y);
+			}
+		}
+
 		return true;
 	}
 
@@ -20,10 +29,11 @@ namespace ane {
 	}
 
 	void SpriteRenderComponent::Draw(Renderer& renderer) {
-		renderer.DrawTexture(this->texture.get(), this->owner->transform);
+		renderer.DrawTexture(this->texture.get(), this->source, this->owner->transform);
 	}
 
 	void SpriteRenderComponent::Read(const JSON_t& value) {
+		READ_DATA(value, source);
 		READ_DATA(value, textureName);
 	}
 }

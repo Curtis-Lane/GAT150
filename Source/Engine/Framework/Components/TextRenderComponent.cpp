@@ -1,7 +1,6 @@
 #include "TextRenderComponent.h"
 
 #include "Framework/Resource/ResourceManager.h"
-#include "Core/Math/Color.h"
 #include "Framework/Actor.h"
 
 namespace ane {
@@ -33,7 +32,7 @@ namespace ane {
 		if(this->changed) {
 			this->changed = false;
 			// Create text using text string and color
-			this->p_text->Create(renderer, this->text, Color(1.0f, 1.0f, 1.0f, 1.0f));
+			this->p_text->Create(renderer, this->text, color);
 		}
 
 		// Draw text
@@ -52,5 +51,6 @@ namespace ane {
 		READ_DATA(value, text);
 		READ_DATA(value, fontName);
 		READ_DATA(value, fontSize);
+		READ_DATA(value, color);
 	}
 }

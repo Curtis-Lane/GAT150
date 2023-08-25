@@ -12,15 +12,16 @@ namespace ane {
 			float r, g, b, a;
 
 		public:
-			Color() {
-				r, b, g, a = 0;
-			}
+			Color() {r, b, g, a = 0.0f;}
 			Color(float r, float g, float b, float a = 1.0f) {
 				this->r = r;
 				this->g = g;
 				this->b = b;
 				this->a = a;
 			}
+
+			float  operator [] (size_t index) const {return (&r)[index];}
+			float& operator [] (size_t index) {return (&r)[index];}
 
 			static uint8_t ToInt(float color) {return static_cast<uint8_t>(Clamp(color, 0.0f, 1.0f) * 255);}
 	};

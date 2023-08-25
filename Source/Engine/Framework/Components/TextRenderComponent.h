@@ -2,6 +2,7 @@
 
 #include "RenderComponent.h"
 
+#include "Core/Math/Color.h"
 #include "Renderer/Text.h"
 
 namespace ane {
@@ -22,6 +23,7 @@ namespace ane {
 			std::string text;
 			std::string fontName;
 			int fontSize = 0;
+			Color color;
 
 		private:
 			bool changed = true;

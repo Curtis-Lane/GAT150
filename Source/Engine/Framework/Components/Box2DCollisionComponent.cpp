@@ -1,6 +1,7 @@
 #include "Box2DCollisionComponent.h"
 
 #include "Box2DPhysicsComponent.h"
+#include "SpriteRenderComponent.h"
 #include "Framework/Actor.h"
 
 namespace ane {
@@ -9,6 +10,13 @@ namespace ane {
 	bool Box2DCollisionComponent::Initialize() {
 		auto component = this->owner->GetComponent<Box2DPhysicsComponent>();
 		if(component != nullptr) {
+			if(data.size.x == 0 && data.size.y == 0) {
+				auto spriteComponent = this->owner->GetComponent<SpriteRenderComponent>();
+				if(spriteComponent != nullptr) {
+					data.size = Vector2(spriteComponent->source.w, spriteComponent->source.h);
+				}
+			}
+
 			data.size = data.size * scaleOffset * this->owner->transform.scale;
 
 			if(component->body->GetType() == b2_staticBody) {

@@ -3,6 +3,7 @@
 #include "RenderComponent.h"
 
 #include "Renderer/Texture.h"
+#include "Core/Math/Rect.h"
 
 #include "Framework/Factory.h"
 
@@ -14,9 +15,9 @@ namespace ane {
 			bool Initialize() override;
 			void Update(float deltaTime) override;
 			void Draw(class Renderer& renderer) override;
-			float GetRadius() override {return this->texture->GetSize().Length() * 0.5f;}
 
 		public:
+			Rect source;
 			std::string textureName;
 			res_t<Texture> texture;
 	};
