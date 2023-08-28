@@ -23,7 +23,7 @@ namespace ane {
 			std::string text;
 			std::string fontName;
 			int fontSize = 0;
-			Color color;
+			Color color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 		private:
 			bool changed = true;

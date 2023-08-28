@@ -4,6 +4,8 @@
 #include "Framework/Game.h"
 #include "Renderer/Text.h"
 
+#define ADD_ACTOR(actor) this->scene->Add(std::move(actor))
+
 class PlatformGame : public ane::Game, ane::IEventListener {
 	public:
 		enum class State {

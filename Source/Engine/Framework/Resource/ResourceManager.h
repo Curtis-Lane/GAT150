@@ -27,7 +27,14 @@ namespace ane {
 		}
 
 		res_t<T> resource = std::make_shared<T>();
-		resource->Create(fileName, args...);
+
+		if(!resource->Create(fileName, args...)) {
+			// Resource not created
+			WARNING_LOG("Could not create resource: " << fileName);
+			return res_t<T>();
+		}
+
+		// Add resource to resource manager, return resource
 		this->resources[fileName] = resource;
 
 		return resource;

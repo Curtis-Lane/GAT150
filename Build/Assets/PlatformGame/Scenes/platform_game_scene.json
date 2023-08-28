@@ -6,7 +6,7 @@
 			"persistent" : true,
 			"transform" : {
 				"position" : [400, 300],
-				"scale" : 1.275,
+				"scale" : 1,
 				"rotation" : 0.0
 			},
 			"components" : [
@@ -29,7 +29,7 @@
 				{
 					"type" : "SpriteAnimRenderComponent",
 					"textureName" : "Textures/coin.png",
-					"defaultSequence" : "idle",
+					"defaultSequenceName" : "idle",
 					"sequences" : [
 						{
 							"name" : "idle",
@@ -41,6 +41,153 @@
 							"textureName" : "Textures/coin.png"
 						}
 					]
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.0,
+					"gravityScale" : 1.0,
+					"constrainAngle" : true
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"restitution" : 0
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Crate",
+			"persistent" : true,
+			"prototype" : true,
+			"transform" : {
+				"position" : [325, 300],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "SpriteRenderComponent",
+					"textureName" : "Textures/crate.png"
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.0,
+					"gravityScale" : 1.0,
+					"constrainAngle" : true
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"restitution" : 0.1
+				}
+			]
+		},
+		{
+			"type" : "Player",
+			"name" : "Player",
+			"tag" : "Player",
+			"persistent" : true,
+			"transform" : {
+				"position" : [450, 300],
+				"scale" : 1.275,
+				"rotation" : 0.0
+			},
+			"speed" : 20.0,
+			"jump" : 6.0,
+			"health" : 100,
+			"components" : [
+				{
+					"type" : "SpriteAnimRenderComponent",
+					"defaultSequenceName" : "idle",
+					"sequences" : [
+						{
+							"name" : "idle",
+							"fps" : 12,
+							"numColumns" : 4,
+							"numRows" : 1,
+							"startFrame" : 1,
+							"endFrame" : 4,
+							"textureName" : "Textures/Player/idle.png"
+						},
+						{
+							"name" : "run",
+							"fps" : 12,
+							"numColumns" : 6,
+							"numRows" : 1,
+							"startFrame" : 1,
+							"endFrame" : 6,
+							"textureName" : "Textures/Player/run.png"
+						}
+					]
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 2.0,
+					"gravityScale" : 1.0,
+					"constrainAngle" : true
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"restitution" : 0
+				}
+			]
+		},
+		{
+			"type" : "Enemy",
+			"name" : "Enemy",
+			"tag" : "Enemy",
+			"persistent" : true,
+			"transform" : {
+				"position" : [450, 300],
+				"scale" : 1.275,
+				"rotation" : 0.0
+			},
+			"speed" : 2.0,
+			"health" : 100,
+			"components" : [
+				{
+					"type" : "SpriteAnimRenderComponent",
+					"defaultSequenceName" : "idle",
+					"sequences" : [
+						{
+							"name" : "idle",
+							"fps" : 12,
+							"numColumns" : 4,
+							"numRows" : 1,
+							"startFrame" : 1,
+							"endFrame" : 4,
+							"textureName" : "Textures/BatEnemy/bat.png"
+						}
+					]
+				},
+				{
+					"type" : "Box2DPhysicsComponent",
+					"damping" : 0.0,
+					"gravityScale" : 0.0,
+					"constrainAngle" : true
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"restitution" : 0
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"tag" : "Ground",
+			"transform" : {
+				"position" : [
+					400,
+					520
+				]
+			},
+			"components" : [
+				{
+					"type" : "Box2DPhysicsComponent",
+					"isDynamic" : false
+				},
+				{
+					"type" : "Box2DCollisionComponent",
+					"size" : [600, 20]
 				}
 			]
 		},
@@ -49,7 +196,7 @@
 			"name" : "Title",
 			"persistent" : true,
 			"transform" : {
-				"position" : [400, 400],
+				"position" : [400, 200],
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
@@ -58,7 +205,7 @@
 					"type" : "TextRenderComponent",
 					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
-					"text" : "CRAFTEROIDS",
+					"text" : "TITLE",
 					"color" : [1.0, 0.0, 0.0, 1.0]
 				}
 			]

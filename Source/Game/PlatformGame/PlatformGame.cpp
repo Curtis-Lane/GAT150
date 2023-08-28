@@ -26,6 +26,12 @@ void PlatformGame::Shutdown() {
 void PlatformGame::Update(float deltaTime) {
 	switch(this->state) {
 		case State::Title:
+			{
+				//auto actor = INSTANTIATE(ane::Actor, "Crate");
+				//actor->transform.position = ane::Vector2(ane::random(ane::globalRenderer.GetWidth()), 100);
+				//actor->Initialize();
+				//ADD_ACTOR(actor);
+			}
 			break;
 		case State::StartGame:
 			break;
