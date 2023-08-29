@@ -18,6 +18,9 @@ namespace ane {
 
 		public:
 			Rect source;
+			bool flipH = false;
+			Vector2 origin = Vector2(0.5f, 0.5f);
+
 			std::string textureName;
 			res_t<Texture> texture;
 	};

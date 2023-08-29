@@ -2,6 +2,7 @@
 
 #include "Framework/Actor.h"
 
+#include "Framework/Components/SpriteAnimRenderComponent.h"
 #include "Framework/Components/PhysicsComponent.h"
 
 class Player : public ane::Actor {
@@ -20,5 +21,6 @@ class Player : public ane::Actor {
 		int health = 100;
 		int groundCount = 0;
 
-		ane::PhysicsComponent* physicsComponent;
+		ane::PhysicsComponent* physicsComponent = nullptr;
+		ane::SpriteAnimRenderComponent* spriteAnimRenderComponent = nullptr;
 };

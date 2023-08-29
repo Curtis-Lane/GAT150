@@ -11,6 +11,7 @@ bool Player::Initialize() {
 
 	// Cache off
 	this->physicsComponent = GetComponent<ane::PhysicsComponent>();
+	this->spriteAnimRenderComponent = GetComponent<ane::SpriteAnimRenderComponent>();
 
 	return true;
 }
@@ -18,6 +19,7 @@ bool Player::Initialize() {
 void Player::Update(float deltaTime) {
 	Actor::Update(deltaTime);
 
+	// Movement
 	float dir = 0.0f;
 	if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_A) || ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_LEFT)) {
 		dir = -1.0f;
@@ -27,14 +29,25 @@ void Player::Update(float deltaTime) {
 
 	ane::vec2 forward = ane::vec2(1.0f, 0.0f).Rotate(this->transform.rotation);
 
-	this->physicsComponent->ApplyForce(forward * this->speed * dir);
+	this->physicsComponent->ApplyForce(forward * this->speed * dir * ((this->groundCount > 0) ? 1 : 0.75f));
 
+	// Jump
 	if(ane::globalInputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !ane::globalInputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE)) {
 		ane::Vector2 up = ane::Vector2(0, -1);
 
 		if(this->groundCount > 0) {
 			this->physicsComponent->SetVelocity(up * this->jump);
 		}
+	}
+
+	// Animation
+	ane::Vector2 velocity = this->physicsComponent->velocity;
+	// Check if moving
+	if(std::fabs(velocity.x) > 0.2f && dir != 0) {
+		this->spriteAnimRenderComponent->flipH = (velocity.x < -0.1f);
+		this->spriteAnimRenderComponent->SetSequence("run");
+	} else {
+		this->spriteAnimRenderComponent->SetSequence("idle");
 	}
 }
 

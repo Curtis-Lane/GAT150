@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include <rapidjson/include/rapidjson/document.h>
 
@@ -22,6 +23,8 @@ namespace ane {
 			static bool Read(const rapidjson::Value& value, const std::string& name, class Vector2& data, bool required = false);
 			static bool Read(const rapidjson::Value& value, const std::string& name, class Color& data, bool required = false);
 			static bool Read(const rapidjson::Value& value, const std::string& name, class Rect& data, bool required = false);
+			static bool Read(const rapidjson::Value& value, const std::string& name, std::vector<std::string>& data, bool required = false);
+			static bool Read(const rapidjson::Value& value, const std::string& name, std::vector<int>& data, bool required = false);
 	};
 
 	using JSON_t = rapidjson::Value;

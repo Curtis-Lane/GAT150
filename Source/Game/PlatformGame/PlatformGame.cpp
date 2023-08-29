@@ -6,10 +6,9 @@
 #include "Framework/Framework.h"
 
 bool PlatformGame::Initialize() {
-	// Load audio
-
 	this->scene = std::make_unique<ane::Scene>();
 	this->scene->Load("Scenes/platform_game_scene.json");
+	this->scene->Load("Scenes/tilemap.json");
 	this->scene->Initialize();
 
 	// Add events

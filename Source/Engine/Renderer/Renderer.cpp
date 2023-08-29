@@ -114,4 +114,22 @@ namespace ane {
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
 		SDL_RenderCopyEx(this->renderer, texture->texture, (SDL_Rect*)(&source), &dest, RadiansToDegrees(matrix.GetRotation()), NULL, SDL_FLIP_NONE);
 	}
+
+	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform, const Vector2& origin, bool flipH) {
+		Matrix3x3 matrix = transform.GetMatrix();
+
+		Vector2 position = matrix.GetTranslation();
+		Vector2 size = Vector2(source.w, source.h) * matrix.GetScale();
+
+		SDL_Rect dest;
+		dest.x = (int) (position.x - (size.x * origin.x));
+		dest.y = (int) (position.y - (size.y * origin.y));
+		dest.w = (int) size.x;
+		dest.h = (int) size.y;
+
+		SDL_Point center{static_cast<int>(size.x * origin.x), static_cast<int>(size.y * origin.y)};
+
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(this->renderer, texture->texture, (SDL_Rect*) (&source), &dest, RadiansToDegrees(matrix.GetRotation()), &center, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	}
 }

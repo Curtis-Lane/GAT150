@@ -25,6 +25,8 @@
 #include "Components/CircleCollisionComponent.h"
 #include "Components/Box2DCollisionComponent.h"
 
+#include "Components/TilemapComponent.h"
+
 // Resources
 #include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"

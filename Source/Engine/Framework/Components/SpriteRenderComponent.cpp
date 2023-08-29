@@ -29,11 +29,13 @@ namespace ane {
 	}
 
 	void SpriteRenderComponent::Draw(Renderer& renderer) {
-		renderer.DrawTexture(this->texture.get(), this->source, this->owner->transform);
+		renderer.DrawTexture(this->texture.get(), this->source, this->owner->transform, this->origin, this->flipH);
 	}
 
 	void SpriteRenderComponent::Read(const JSON_t& value) {
 		READ_DATA(value, source);
+		READ_DATA(value, flipH);
+		READ_DATA(value, origin);
 		READ_DATA(value, textureName);
 	}
 }
