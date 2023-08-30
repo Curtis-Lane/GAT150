@@ -12,8 +12,8 @@ bool PlatformGame::Initialize() {
 	this->scene->Initialize();
 
 	// Add events
-	EVENT_SUBSCRIBE("OnAddPoints", PlatformGame::OnAddPoints);
-	EVENT_SUBSCRIBE("OnPlayerDead", PlatformGame::OnPlayerDead);
+	//EVENT_SUBSCRIBE("OnAddPoints", PlatformGame::OnAddPoints);
+	//EVENT_SUBSCRIBE("OnPlayerDead", PlatformGame::OnPlayerDead);
 
 	return true;
 }

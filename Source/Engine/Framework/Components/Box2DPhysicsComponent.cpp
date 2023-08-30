@@ -40,6 +40,10 @@ namespace ane {
 		this->body->SetLinearVelocity(VEC2_TO_B2VEC2(velocity));
 	}
 
+	void Box2DPhysicsComponent::SetGravityScale(float scale) {
+		this->body->SetGravityScale(scale);
+	}
+
 	void Box2DPhysicsComponent::Read(const JSON_t& value) {
 		READ_NAME_DATA(value, "damping", data.damping);
 		READ_NAME_DATA(value, "angularDamping", data.angularDamping);

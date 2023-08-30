@@ -14,5 +14,5 @@ INFO: Main.cpp(11) Initializing Engine
 INFO: Factory.h(72) Prototype Class registered: Crate
 INFO: Factory.h(72) Prototype Class registered: tile01
 INFO: Factory.h(72) Prototype Class registered: tile02
-INFO: EventManager.cpp(16) Event subscribed: OnAddPoints
-INFO: EventManager.cpp(16) Event subscribed: OnPlayerDead
+INFO: Factory.h(72) Prototype Class registered: tile03
+INFO: EventManager.cpp(16) Event subscribed: OnAnimationEnd

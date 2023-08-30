@@ -28,7 +28,7 @@ namespace ane {
 			bool Initialize() override;
 			void Update(float deltaTime) override;
 
-			void SetSequence(const std::string& name);
+			void SetSequence(const std::string& name, bool update = true);
 			void UpdateSource();
 
 		public:

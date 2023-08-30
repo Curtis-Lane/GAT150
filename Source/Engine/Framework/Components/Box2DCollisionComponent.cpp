@@ -10,12 +10,13 @@ namespace ane {
 	bool Box2DCollisionComponent::Initialize() {
 		auto component = this->owner->GetComponent<Box2DPhysicsComponent>();
 		if(component != nullptr) {
-			if(data.size.x == 0 && data.size.y == 0) {
 				auto spriteComponent = this->owner->GetComponent<SpriteRenderComponent>();
 				if(spriteComponent != nullptr) {
-					data.size = Vector2(spriteComponent->source.w, spriteComponent->source.h);
+					if(data.size.x == 0 && data.size.y == 0) {
+						data.size = Vector2(spriteComponent->source.w, spriteComponent->source.h);
+					}
+					data.offset = spriteComponent->origin - Vector2(0.5f, 0.5f);
 				}
-			}
 
 			data.size = data.size * scaleOffset * this->owner->transform.scale;
 

@@ -1,6 +1,7 @@
 #include "SpriteAnimRenderComponent.h"
 
 #include "Framework/Resource/ResourceManager.h"
+#include "Framework/Event/EventManager.h"
 #include "Renderer/Renderer.h"
 
 namespace ane {
@@ -9,8 +10,10 @@ namespace ane {
 	bool SpriteAnimRenderComponent::Initialize() {
 		SpriteRenderComponent::Initialize();
 
-		SetSequence(this->defaultSequenceName);
-		UpdateSource();
+		SetSequence(this->defaultSequenceName, false);
+		if(this->source.w == 0 && this->source.h == 0) {
+			UpdateSource();
+		}
 
 		return true;
 	}
@@ -22,13 +25,14 @@ namespace ane {
 			frame++;
 			if(frame > this->currentSequence->endFrame) {
 				frame = (this->currentSequence->loop) ? this->currentSequence->startFrame : this->currentSequence->endFrame;
+				EVENT_DISPATCH("OnAnimationEnd", this->currentSequence->name);
 			}
 		}
 
 		UpdateSource();
 	}
 
-	void SpriteAnimRenderComponent::SetSequence(const std::string& name) {
+	void SpriteAnimRenderComponent::SetSequence(const std::string& name, bool update) {
 		// Prevent set sequence again
 		if(this->currentSequence != nullptr && this->currentSequence->name == name) {
 			return;
@@ -46,6 +50,10 @@ namespace ane {
 			// Reset frame information
 			frame = this->currentSequence->startFrame;
 			frameTimer = 1.0f / this->currentSequence->fps;
+
+			if(update) {
+				UpdateSource();
+			}
 		}
 	}
 
@@ -75,6 +83,7 @@ namespace ane {
 				READ_NAME_DATA(sequenceValue, "numRows", sequence.numRows);
 				READ_NAME_DATA(sequenceValue, "startFrame", sequence.startFrame);
 				READ_NAME_DATA(sequenceValue, "endFrame", sequence.endFrame);
+				READ_NAME_DATA(sequenceValue, "loop", sequence.loop);
 
 				// read texture
 				std::string textureName;

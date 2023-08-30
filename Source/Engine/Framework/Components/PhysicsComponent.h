@@ -9,6 +9,7 @@ namespace ane {
 			virtual void ApplyForce(const Vector2& force) = 0;
 			virtual void ApplyTorque(float torque) = 0;
 			virtual void SetVelocity(const Vector2& velocity) {this->velocity = velocity;}
+			virtual void SetGravityScale(float scale) {;}
 
 		public:
 			Vector2 velocity;
