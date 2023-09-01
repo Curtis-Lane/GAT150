@@ -29,6 +29,7 @@ namespace ane {
 			void Update(float deltaTime) override;
 
 			void SetSequence(const std::string& name, bool update = true);
+			std::string GetCurrentSequenceName() {return (this->currentSequence != nullptr) ? this->currentSequence->name : "";}
 			void UpdateSource();
 
 		public:

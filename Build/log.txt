@@ -11,8 +11,16 @@ INFO: Factory.h(65) Class registered: Box2DPhysicsComponent
 INFO: Factory.h(65) Class registered: Box2DCollisionComponent
 INFO: Factory.h(65) Class registered: Actor
 INFO: Main.cpp(11) Initializing Engine
-INFO: Factory.h(72) Prototype Class registered: Crate
+INFO: Factory.h(72) Prototype Class registered: Coin
+INFO: Factory.h(72) Prototype Class registered: Player
+INFO: Factory.h(72) Prototype Class registered: Enemy
 INFO: Factory.h(72) Prototype Class registered: tile01
 INFO: Factory.h(72) Prototype Class registered: tile02
 INFO: Factory.h(72) Prototype Class registered: tile03
+INFO: Factory.h(72) Prototype Class registered: crate1_01
+INFO: Factory.h(72) Prototype Class registered: crate1_02
+INFO: Factory.h(72) Prototype Class registered: crate1_03
+INFO: Factory.h(72) Prototype Class registered: crate1_04
+INFO: EventManager.cpp(16) Event subscribed: OnPickupCoin
+INFO: EventManager.cpp(16) Event subscribed: OnPlayerDead
 INFO: EventManager.cpp(16) Event subscribed: OnAnimationEnd

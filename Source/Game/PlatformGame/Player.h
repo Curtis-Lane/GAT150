@@ -18,12 +18,18 @@ class Player : public ane::Actor, ane::IEventListener {
 
 		void OnAnimationEnd(const ane::Event& event);
 
+		friend class PlatformGame;
+		friend class Enemy;
+
 	private:
 		float speed = 0.0f;
 		float maxSpeed = 0.0f;
 		float jump = 0.0f;
 		int health = 100;
 		int groundCount = 0;
+
+		float invulnTime = 0.0f;
+		float currentInvulnTime = 0.0f;
 
 		bool swordDrawn = false;
 		int attackFrame = 0;

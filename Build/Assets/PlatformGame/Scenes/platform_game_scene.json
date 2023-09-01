@@ -5,23 +5,25 @@
 			"name" : "Background",
 			"persistent" : true,
 			"transform" : {
-				"position" : [400, 300],
+				"position" : [0, 0],
 				"scale" : 1,
 				"rotation" : 0.0
 			},
 			"components" : [
 				{
 					"type" : "SpriteRenderComponent",
-					"textureName" : "Textures/background.png"
+					"textureName" : "Textures/background_stretched.png",
+					"origin" : [0, 0]
 				}
 			]
 		},
 		{
 			"type" : "Actor",
 			"name" : "Coin",
-			"persistent" : true,
+			"tag" : "Coin",
+			"prototype" : true,
 			"transform" : {
-				"position" : [400, 300],
+				"position" : [416, 300],
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
@@ -30,6 +32,7 @@
 					"type" : "SpriteAnimRenderComponent",
 					"textureName" : "Textures/coin.png",
 					"defaultSequenceName" : "idle",
+					"source" : [0, 0, 30, 32],
 					"sequences" : [
 						{
 							"name" : "idle",
@@ -56,39 +59,12 @@
 			]
 		},
 		{
-			"type" : "Actor",
-			"name" : "Crate",
-			"persistent" : true,
-			"prototype" : true,
-			"transform" : {
-				"position" : [325, 300],
-				"scale" : 1.0,
-				"rotation" : 0.0
-			},
-			"components" : [
-				{
-					"type" : "SpriteRenderComponent",
-					"textureName" : "Textures/crate.png"
-				},
-				{
-					"type" : "Box2DPhysicsComponent",
-					"damping" : 0.0,
-					"gravityScale" : 1.0,
-					"constrainAngle" : true
-				},
-				{
-					"type" : "Box2DCollisionComponent",
-					"restitution" : 0.1
-				}
-			]
-		},
-		{
 			"type" : "Player",
 			"name" : "Player",
 			"tag" : "Player",
-			"persistent" : true,
+			"prototype" : true,
 			"transform" : {
-				"position" : [450, 300],
+				"position" : [416, 500],
 				"scale" : 2,
 				"rotation" : 0.0
 			},
@@ -96,6 +72,7 @@
 			"maxSpeed" : 8.0,
 			"jump" : 12.0,
 			"health" : 100,
+			"invulnTime" : 2,
 			"components" : [
 				{
 					"type" : "SpriteAnimRenderComponent",
@@ -198,14 +175,15 @@
 			"type" : "Enemy",
 			"name" : "Enemy",
 			"tag" : "Enemy",
-			"persistent" : true,
+			"prototype" : true,
 			"transform" : {
-				"position" : [450, 300],
+				"position" : [450, 0],
 				"scale" : 1.5,
 				"rotation" : 0.0
 			},
-			"speed" : 2.0,
-			"health" : 100,
+			"speed" : 1.0,
+			"health" : 30,
+			"invulnTime" : 1,
 			"components" : [
 				{
 					"type" : "SpriteAnimRenderComponent",
@@ -240,7 +218,7 @@
 			"name" : "Title",
 			"persistent" : true,
 			"transform" : {
-				"position" : [400, 200],
+				"position" : [416, 200],
 				"scale" : 1.0,
 				"rotation" : 0.0
 			},
@@ -249,7 +227,62 @@
 					"type" : "TextRenderComponent",
 					"fontName" : "Fonts/ArcadeClassic.ttf",
 					"fontSize" : 24,
-					"text" : "TITLE",
+					"text" : "PLATFORMER",
+					"color" : [1.0, 0.0, 0.0, 1.0]
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Health",
+			"persistent" : true,
+			"transform" : {
+				"position" : [100, 45],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "Health"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Score",
+			"persistent" : true,
+			"transform" : {
+				"position" : [720, 45],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "Score"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "GameOver",
+			"persistent" : true,
+			"transform" : {
+				"position" : [416, 300],
+				"scale" : 1.0,
+				"rotation" : 0.0
+			},
+			"components" : [
+				{
+					"type" : "TextRenderComponent",
+					"fontName" : "Fonts/ArcadeClassic.ttf",
+					"fontSize" : 24,
+					"text" : "GAME OVER",
 					"color" : [1.0, 0.0, 0.0, 1.0]
 				}
 			]

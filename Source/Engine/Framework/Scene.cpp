@@ -22,7 +22,6 @@ namespace ane {
 			}
 
 			if((*iter)->destroyed) {
-				(*iter)->OnDestroy();
 				iter = this->actors.erase(iter);
 			} else {
 				iter++;

@@ -17,6 +17,13 @@ bool Enemy::Initialize() {
 void Enemy::Update(float deltaTime) {
 	Actor::Update(deltaTime);
 
+	if(this->currentInvulnTime != -1.0f) {
+		this->currentInvulnTime -= deltaTime;
+		if(this->currentInvulnTime <= 0) {
+			this->currentInvulnTime = -1.0f;
+		}
+	}
+
 	ane::vec2 forward = ane::vec2(1.0f, 0.0f).Rotate(this->transform.rotation);
 
 	Player* player = this->scene->GetActor<Player>();
@@ -29,9 +36,10 @@ void Enemy::Update(float deltaTime) {
 }
 
 void Enemy::OnCollisionEnter(Actor* other) {
-	//if(other->tag == "Player") {
-	//	health -= 10;
-	//}
+	if(other->tag == "Player" && this->currentInvulnTime == -1.0f && dynamic_cast<Player*>(other)->spriteAnimRenderComponent->GetCurrentSequenceName().find("attack") != std::string::npos) {
+		health -= 10;
+		this->currentInvulnTime = this->invulnTime;
+	}
 
 	if(health <= 0) {
 		if(!this->destroyed) {
@@ -51,4 +59,5 @@ void Enemy::Read(const ane::JSON_t& value) {
 
 	READ_DATA(value, speed);
 	READ_DATA(value, health);
+	READ_DATA(value, invulnTime);
 }

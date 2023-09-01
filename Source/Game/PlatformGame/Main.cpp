@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 	ane::setFilePath("assets/PlatformGame");
 
 	ane::globalRenderer.Initialize();
-	ane::globalRenderer.CreateWindow("Platformer", 800, 600);
+	ane::globalRenderer.CreateWindow("Platformer", 832, 600);
 
 	ane::globalInputSystem.Initialize();
 	ane::globalAudioSystem.Initialize();

@@ -17,6 +17,8 @@ class Enemy : public ane::Actor {
 	private:
 		float speed = 0.0f;
 		int health = 100;
+		float invulnTime = 0.0f;
+		float currentInvulnTime = 0.0f;
 
 		ane::PhysicsComponent* physicsComponent = nullptr;
 };

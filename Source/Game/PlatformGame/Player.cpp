@@ -21,6 +21,13 @@ bool Player::Initialize() {
 void Player::Update(float deltaTime) {
 	Actor::Update(deltaTime);
 
+	if(this->currentInvulnTime != -1.0f) {
+		this->currentInvulnTime -= deltaTime;
+		if(this->currentInvulnTime <= 0) {
+			this->currentInvulnTime = -1.0f;
+		}
+	}
+
 	ane::Vector2 velocity = this->physicsComponent->velocity;
 	bool onGround = (this->groundCount > 0);
 
@@ -48,7 +55,7 @@ void Player::Update(float deltaTime) {
 			}
 		}
 
-		this->physicsComponent->SetGravityScale((velocity.y > 0) ? 3 : 2);
+		this->physicsComponent->SetGravityScale((velocity.y > 0) ? 3.0f : 2.0f);
 
 		// Animation
 		// Check if moving
@@ -77,12 +84,15 @@ void Player::Update(float deltaTime) {
 			if(this->attackFrame == 0) {
 				this->busy = true;
 				this->spriteAnimRenderComponent->SetSequence("attack1");
+				ane::globalAudioSystem.PlayOneShot("sword_slash");
 			} else if(this->attackFrame == 1) {
 				this->busy = true;
 				this->spriteAnimRenderComponent->SetSequence("attack2");
+				ane::globalAudioSystem.PlayOneShot("sword_slash");
 			} else if(this->attackFrame == 2) {
 				this->busy = true;
 				this->spriteAnimRenderComponent->SetSequence("attack3");
+				ane::globalAudioSystem.PlayOneShot("sword_slash");
 			}
 		}
 
@@ -97,9 +107,15 @@ void Player::OnCollisionEnter(Actor* other) {
 		groundCount++;
 	}
 
-	//if(other->tag == "Enemy") {
-	//	health -= 10;
-	//}
+	if(other->tag == "Enemy" && this->currentInvulnTime == -1.0f && this->spriteAnimRenderComponent->GetCurrentSequenceName().find("attack") == std::string::npos) {
+		health -= 10;
+		this->currentInvulnTime = this->invulnTime;
+	}
+
+	if(other->tag == "Coin") {
+		EVENT_DISPATCH("OnPickupCoin", 100);
+		other->destroyed = true;
+	}
 
 	if(health <= 0) {
 		if(!this->destroyed) {
@@ -146,4 +162,5 @@ void Player::Read(const ane::JSON_t& value) {
 	READ_DATA(value, maxSpeed);
 	READ_DATA(value, jump);
 	READ_DATA(value, health);
+	READ_DATA(value, invulnTime);
 }

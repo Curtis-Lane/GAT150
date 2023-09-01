@@ -10,6 +10,7 @@ namespace ane {
 		this->tag = other.tag;
 		this->lifeSpan = other.lifeSpan;
 		this->transform = other.transform;
+		this->persistent = other.persistent;
 		this->scene = other.scene;
 		this->game = other.game;
 
